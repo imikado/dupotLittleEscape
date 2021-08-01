@@ -1,0 +1,162 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://models/doors/door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://models/walls/wallDoorWay.tscn" type="PackedScene" id=2]
+[ext_resource path="res://models/walls/wall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://rooms/bedroom.tscn" type="PackedScene" id=4]
+[ext_resource path="res://common/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://materials/cloth.tres" type="Material" id=6]
+[ext_resource path="res://flat.gd" type="Script" id=7]
+[ext_resource path="res://rooms/livingroom.tscn" type="PackedScene" id=8]
+[ext_resource path="res://rooms/bathroom.tscn" type="PackedScene" id=9]
+[ext_resource path="res://rooms/kitchen.tscn" type="PackedScene" id=10]
+[ext_resource path="res://models/doors/exitDoor.tscn" type="PackedScene" id=11]
+[ext_resource path="res://common/gamePad/navigation.tscn" type="PackedScene" id=12]
+
+[sub_resource type="PlaneMesh" id=1]
+material = ExtResource( 6 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
+
+[sub_resource type="PlaneMesh" id=3]
+
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("doors/exit/MeshInstance/Viewport")
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+albedo_texture = SubResource( 4 )
+
+[node name="flat" type="Spatial"]
+script = ExtResource( 7 )
+
+[node name="walls" type="Spatial" parent="."]
+
+[node name="wall" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( 26.0323, 0, 0, 0, 3, 0, 0, 0, 3, -3.89588, 0, -3.80203 )
+
+[node name="wall3" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( -8.43157, 0, -2.87921e-07, 0, 3, 0, 6.71436e-07, 0, -3, 3.90737, 0, 2.5981 )
+
+[node name="wall4" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( -1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 4, 0, -4.285 )
+
+[node name="wall5" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( 2.26494e-07, 0, -3, 0, 3, 0, 3, 0, 2.26494e-07, 4.01912, -0.0158319, 0.475967 )
+
+[node name="wall6" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( -19.2814, 0, -6.58419e-07, 0, 3, 0, 6.71436e-07, 0, -3, 13.6917, 0, 8.82986 )
+
+[node name="wall12" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( -4.84939, 0, -1.65597e-07, 0, 3, 0, 6.71436e-07, 0, -3, 20.8483, 0, 8.82986 )
+
+[node name="wall2" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( 2.26494e-07, 0, 3, 0, 3, 0, -12.8169, 0, 9.67652e-07, -4.00422, 0, 8.98604 )
+
+[node name="wall7" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( -1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 4, 0, 0.595552 )
+
+[node name="wall8" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( 2.26494e-07, 0, -3, 0, 3, 0, 3, 0, 2.26494e-07, 4, 0, 5.87882 )
+
+[node name="wall9" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( -1.31134e-07, 0, -3, 0, 3, 0, 8.23907, 0, -3.60141e-07, 16.6682, -9.53674e-07, -4.26654 )
+
+[node name="wall10" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( 2.26494e-07, 0, -3, 0, 3, 0, 3, 0, 2.26494e-07, 16.6852, 0, 6.31723 )
+
+[node name="wall11" parent="walls" instance=ExtResource( 3 )]
+transform = Transform( 2.26494e-07, 0, 3, 0, 3, 0, -12.8169, 0, 9.67652e-07, 20.5557, 0, 8.98604 )
+
+[node name="ground" type="MeshInstance" parent="."]
+transform = Transform( 13.1573, 0, 0, 0, 1, 0, 0, 0, 7.03903, 8.52476, 0, 2.42926 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="ground/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="sky" type="MeshInstance" parent="."]
+transform = Transform( 13.1573, 0, 0, 0, -0.999997, -0.017567, 0, 0.00249566, -7.03901, 8.52, 3.79077, 2.42926 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.434461, 0, -0.900691, 0, 1, 0, 0.900691, 0, -0.434461, -3.15936, 0, -1.80807 )
+
+[node name="doors" type="Spatial" parent="."]
+
+[node name="bedroom" parent="doors" instance=ExtResource( 2 )]
+transform = Transform( -1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 4, 0, -1.731 )
+
+[node name="door" parent="doors/bedroom" instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0.742333, 0, 0.0666667 )
+
+[node name="bathroom" parent="doors" instance=ExtResource( 2 )]
+transform = Transform( -1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 4, 0, 3.14446 )
+
+[node name="door" parent="doors/bathroom" instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0.742333, 0, 0.0666667 )
+
+[node name="kitchen" parent="doors" instance=ExtResource( 2 )]
+transform = Transform( -1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 16.6852, 0, 3.91086 )
+
+[node name="door" parent="doors/kitchen" instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0.742333, 0, 0.0666667 )
+
+[node name="exit" parent="doors" instance=ExtResource( 2 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 13.4775, -0.00392628, 8.66105 )
+
+[node name="exitDoor" parent="doors/exit" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257361, -1.58907e-07, -0.00523639 )
+
+[node name="MeshInstance" type="MeshInstance" parent="doors/exit"]
+transform = Transform( -0.214428, -4.38514e-16, 1.0032e-08, -1.87459e-08, 5.01602e-09, -0.114753, 0, -0.419822, -1.8351e-08, 0.505802, 1.12761, -0.0203834 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 5 )
+
+[node name="Viewport" type="Viewport" parent="doors/exit/MeshInstance"]
+size = Vector2( 50, 20 )
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Label" type="Label" parent="doors/exit/MeshInstance/Viewport"]
+margin_right = 50.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "EXIT"
+align = 1
+valign = 1
+
+[node name="rooms" type="Spatial" parent="."]
+
+[node name="bedroom" parent="rooms" instance=ExtResource( 4 )]
+
+[node name="livingroom" parent="rooms" instance=ExtResource( 8 )]
+
+[node name="bathroom" parent="rooms" instance=ExtResource( 9 )]
+
+[node name="kitchen" parent="rooms" instance=ExtResource( 10 )]
+
+[node name="navigation" parent="." instance=ExtResource( 12 )]
+displayLeftJoystick = true
+displayRightJoystick = true
+displayButtonA = true
+displayButtonB = true
+[connection signal="gotoInventory" from="Player" to="." method="_on_Player_gotoInventory"]
+[connection signal="exitDoorOpened" from="doors/exit/exitDoor" to="." method="_on_exitDoor_exitDoorOpened"]
+[connection signal="gotoClosetZoom" from="rooms/bedroom" to="." method="_on_bedroom_gotoClosetZoom"]
+[connection signal="gotoChessBoardZoom" from="rooms/livingroom" to="." method="_on_livingroom_gotoChessBoardZoom"]
+[connection signal="gotoRemoteControlZoom" from="rooms/livingroom" to="." method="_on_livingroom_gotoRemoteControlZoom"]
+[connection signal="gotoBathroomSecretBoxZoom" from="rooms/bathroom" to="." method="_on_bathroom_gotoBathroomSecretBoxZoom"]
+[connection signal="gotoKitchenSecretBoxZoom" from="rooms/kitchen" to="." method="_on_kitchen_gotoKitchenSecretBoxZoom"]
+[connection signal="moveHead" from="navigation" to="Player" method="_on_navigation_moveHead"]
+[connection signal="movePlayer" from="navigation" to="Player" method="_on_navigation_movePlayer"]
+[connection signal="pushButtonA" from="navigation" to="Player" method="_on_navigation_pushButtonA"]
+[connection signal="pushButtonB" from="navigation" to="Player" method="_on_navigation_pushButtonB"]

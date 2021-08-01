@@ -1,0 +1,122 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://ui/Menu.gd" type="Script" id=1]
+[ext_resource path="res://Ubuntu-B.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/menu/background.png" type="Texture" id=3]
+[ext_resource path="res://ressources/gamepad.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.117647, 0.333333, 0.376471, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id=3]
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = SubResource( 1 )
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = SubResource( 2 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = SubResource( 2 )
+
+[node name="menu" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 515.216, 295.703 )
+scale = Vector2( 1.03736, 1.06801 )
+texture = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 292.0
+margin_top = 180.0
+margin_right = 659.0
+margin_bottom = 490.0
+color = Color( 0.0862745, 0.266667, 0.52549, 0.403922 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="play" type="Button" parent="."]
+margin_left = 343.389
+margin_top = 239.789
+margin_right = 602.389
+margin_bottom = 336.789
+theme = SubResource( 3 )
+text = "Jouer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gamepadEnabled" type="CheckButton" parent="."]
+margin_left = 378.375
+margin_top = 358.176
+margin_right = 579.375
+margin_bottom = 427.176
+text = "Navigation tactile ?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="blocGamepad" type="ColorRect" parent="."]
+margin_left = 689.271
+margin_top = 121.158
+margin_right = 1010.27
+margin_bottom = 431.158
+color = Color( 0.0862745, 0.52549, 0.411765, 0.403922 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gamepad" type="Sprite" parent="blocGamepad"]
+position = Vector2( 169.446, 91.864 )
+scale = Vector2( 0.229364, 0.236141 )
+texture = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="blocGamepad"]
+margin_left = 51.6189
+margin_top = 185.262
+margin_right = 155.619
+margin_bottom = 199.262
+text = "N: Déplacement"
+
+[node name="Label3" type="Label" parent="blocGamepad"]
+margin_left = 51.6189
+margin_top = 257.262
+margin_right = 155.619
+margin_bottom = 271.262
+text = "A: Action"
+
+[node name="Label4" type="Label" parent="blocGamepad"]
+margin_left = 51.6189
+margin_top = 275.262
+margin_right = 180.619
+margin_bottom = 289.262
+text = "B: Retour/Inventaire"
+
+[node name="Label2" type="Label" parent="blocGamepad"]
+margin_left = 51.6189
+margin_top = 209.262
+margin_right = 155.619
+margin_bottom = 223.262
+text = "H: monter/descendre la tête
+(en l'absence d'un casque VR)"
+
+[node name="Camera" type="Camera" parent="."]
+current = true
+
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="toggled" from="gamepadEnabled" to="." method="_on_gamepadEnabled_toggled"]
