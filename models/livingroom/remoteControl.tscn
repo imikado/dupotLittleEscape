@@ -52,6 +52,8 @@ _surfaces = [{
 size = Vector3(2, 2, 2)
 
 [sub_resource type="CylinderMesh" id="3"]
+top_radius = 1.0
+bottom_radius = 1.0
 
 [node name="remoteControl" type="StaticBody3D"]
 script = ExtResource("5")
