@@ -21,12 +21,12 @@ func setItem(id_):
 
 	var item=GlobalItems.getItem(id_)
 	var model=load(item.scene).instantiate()
-	holder.add_child(model)
-
+	#before add_child: the toon conversion happens when the model enters the tree
 	if item.has("material"):
 		var material=load(item.material)
 		for mesh in getMeshes(model):
 			mesh.set_surface_override_material(0,material)
+	holder.add_child(model)
 
 	#center the model and scale it to fit a unit cube
 	holder.transform=Transform3D()

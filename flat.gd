@@ -19,7 +19,6 @@ func _ready():
 		#teleport: no interpolation from the start position
 		$Player.reset_physics_interpolation()
 	
-	$sky.visible=true
 	
 	$doors/bedroom/door.init(room,"bedroom_door",true,GlobalItems.ID.BEDROOM_KEY)
 	

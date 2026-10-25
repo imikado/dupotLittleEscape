@@ -21,6 +21,7 @@ GlobalGame="*res://common/singletons/globalGame.gd"
 GlobalItems="*res://common/singletons/globalItems.gd"
 GlobalPlayer="*res://common/singletons/globalPlayer.gd"
 GlobalRoom="*res://common/singletons/globalRoom.gd"
+ToonStyle="*res://common/singletons/toonStyle.gd"
 PauseMenu="*res://ui/pauseMenu.tscn"
 
 [display]
