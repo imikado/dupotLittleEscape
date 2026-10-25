@@ -9,7 +9,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$MeshInstance3D/SubViewport/Label.text=text
+	init(text)
 	
 	if hasBackground:
 		$background.visible=true
@@ -17,6 +17,8 @@ func _ready():
 
 func init(text_):
 	$MeshInstance3D/SubViewport/Label.text=text_
+	#static text: render the viewport only when it changes
+	$MeshInstance3D/SubViewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

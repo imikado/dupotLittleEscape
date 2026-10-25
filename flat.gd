@@ -16,6 +16,8 @@ func _ready():
 		$Player.global_transform.origin=GlobalPlayer.getPosition()
 		
 		$Player.loadCameraPosition(GlobalPlayer.getCameraPosition())
+		#teleport: no interpolation from the start position
+		$Player.reset_physics_interpolation()
 	
 	$sky.visible=true
 	

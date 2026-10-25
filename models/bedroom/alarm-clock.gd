@@ -11,6 +11,7 @@ func refreshTime():
 	var timeString=str("%02d"%[datetimeNow.hour])+":"+str("%02d"%[datetimeNow.minute])
 	
 	$SubViewport/Panel/Label.text=timeString
+	$SubViewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 	
 	
 	

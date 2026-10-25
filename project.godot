@@ -101,6 +101,10 @@ locale/translations=PackedStringArray("res://locale/translations.en.translation"
 
 pointing/emulate_touch_from_mouse=true
 
+[physics]
+
+common/physics_interpolation=true
+
 [rendering]
 
 environment/defaults/default_environment="res://default_env.tres"

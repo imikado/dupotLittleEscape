@@ -96,6 +96,7 @@ __meta__ = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
 position = Vector2(515.248, 304.344)
 current = true
 

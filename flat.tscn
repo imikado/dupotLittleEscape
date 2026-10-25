@@ -126,7 +126,7 @@ surface_material_override/0 = SubResource("5")
 size = Vector2(50, 20)
 usage = 0
 render_target_v_flip = true
-render_target_update_mode = 3
+render_target_update_mode = 1
 
 [node name="Label" type="Label" parent="doors/exit/MeshInstance3D/SubViewport"]
 offset_right = 50.0

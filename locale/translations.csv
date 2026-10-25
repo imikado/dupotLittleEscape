@@ -55,5 +55,10 @@ ZOOM_BACK,← Retour à la pièce [Retour arrière],← Back to the room [Backsp
 ZOOM_HINT_CODE,"↑ ↓ : choisir la molette · ← → : changer le chiffre · Entrée : valider","↑ ↓: select a wheel · ← →: change the digit · Enter: confirm"
 ZOOM_HINT_REMOTE,"Flèches : choisir une touche · Entrée : appuyer (E : effacer, A : valider)","Arrows: select a key · Enter: press (E: erase, A: confirm)"
 ZOOM_HINT_CHESS,← → : tourner l'échiquier,← →: rotate the chessboard
+POSTIT_CLUE,"La clef
+est dans
+l'armoire","The key
+is in the
+wardrobe"
 END_CONGRATS,Félicitations ;),Congratulations ;)
 END_BACK_MENU,Retour au menu,Back to menu

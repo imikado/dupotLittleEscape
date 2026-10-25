@@ -15,6 +15,7 @@ const LOW_OBJECT_MARGIN=0.5
 const MAX_TILT=-60.0
 const TILT_SPEED=5.0
 var tiltObject=null
+var tiltAabb=null
 
 #keys
 var left=false
@@ -106,7 +107,7 @@ func _on_contact_body_entered(body):
 		nearObject=body
 
 	if isLowObject(body):
-		tiltObject=body
+		setTiltObject(body)
 
 
 func _on_contact_body_exited(body):
@@ -117,7 +118,7 @@ func _on_contact_body_exited(body):
 			nearObject=null
 
 	if body==tiltObject:
-		tiltObject=null
+		setTiltObject(null)
 
 	#fall back on another object still in reach
 	for other in $XROrigin3D/contact.get_overlapping_bodies():
@@ -127,7 +128,7 @@ func _on_contact_body_exited(body):
 			other.displayInfo()
 			nearObject=other
 		if tiltObject==null and isLowObject(other):
-			tiltObject=other
+			setTiltObject(other)
 
 func getObjectAabb(object_):
 	var aabb=null
@@ -144,8 +145,13 @@ func isLowObject(object_):
 		return false
 	return aabb.end.y < $XROrigin3D/Camera3D.global_position.y-LOW_OBJECT_MARGIN
 
-func getTiltAngle(object_):
-	var aabb=getObjectAabb(object_)
+#the furniture bounds are computed once, not every physics frame
+func setTiltObject(object_):
+	tiltObject=object_
+	tiltAabb=getObjectAabb(object_) if object_ else null
+
+func getTiltAngle():
+	var aabb=tiltAabb
 	if aabb==null:
 		return 0.0
 
@@ -160,7 +166,7 @@ func getTiltAngle(object_):
 func updateTilt(delta):
 	var target=0.0
 	if tiltObject and is_instance_valid(tiltObject):
-		target=getTiltAngle(tiltObject)
+		target=getTiltAngle()
 
 	var camera=$XROrigin3D/Camera3D
 	camera.rotation_degrees.x=lerp(camera.rotation_degrees.x,target,min(1.0,delta*TILT_SPEED))

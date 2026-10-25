@@ -94,6 +94,7 @@ func selectLine(number_):
 
 func setLine(number_,text_):
 	get_node("cover/bloc/line"+str(number_)+"/SubViewport/Label").text=text_
+	get_node("cover/bloc/line"+str(number_)+"/SubViewport").render_target_update_mode=SubViewport.UPDATE_ONCE
 	
 func refreshState():
 	if props.state==OPENED:

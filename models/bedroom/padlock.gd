@@ -85,3 +85,4 @@ func selectLine(number_):
 
 func setLine(number_,text_):
 	get_node("bloc/line"+str(number_)+"/viewport/Label").text=text_
+	get_node("bloc/line"+str(number_)+"/viewport").render_target_update_mode=SubViewport.UPDATE_ONCE
