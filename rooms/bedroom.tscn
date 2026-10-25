@@ -21,7 +21,7 @@ transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, 1.4622
 transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, -2.83064, 0, -2.74728)
 
 [node name="closet" parent="." instance=ExtResource("2")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.875385, 0, 1.79072)
+transform = Transform3D(3, 0, 0, 0, 3.5, 0, 0, 0, 3, -0.875385, 0, 1.79072)
 
 [node name="alarm-clock" parent="." instance=ExtResource("4")]
 transform = Transform3D(-0.0830851, 0, -0.225454, 0, 0.138112, 0, 0.124294, 0, -0.045805, 1.0986, 0.920985, -3.10518)
