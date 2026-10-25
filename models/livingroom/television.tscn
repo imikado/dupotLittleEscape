@@ -3,8 +3,7 @@
 [ext_resource type="Material" path="res://ressources/metal.material" id="1"]
 [ext_resource type="Material" path="res://ressources/metalDark.material" id="2"]
 [ext_resource type="Script" path="res://models/livingroom/television.gd" id="3"]
-[ext_resource type="FontFile" path="res://Ubuntu-B.ttf" id="4"]
-[ext_resource type="Material" path="res://materials/red_cloth.tres" id="5"]
+[ext_resource type="FontFile" path="res://ressources/fonts/Jersey10.ttf" id="4"]
 
 [sub_resource type="ConcavePolygonShape3D" id="1"]
 backface_collision = true
@@ -45,23 +44,15 @@ viewport_path = NodePath("channelOK/SubViewport")
 [sub_resource type="StandardMaterial3D" id="4"]
 resource_local_to_scene = true
 albedo_texture = SubResource("3")
+texture_filter = 0
 
-[sub_resource type="FontFile" id="5"]
-fallbacks = Array[Font]([ExtResource("4")])
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
+[sub_resource type="ViewportTexture" id="7"]
+viewport_path = NodePath("channelKO/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="8"]
+resource_local_to_scene = true
+albedo_texture = SubResource("7")
+texture_filter = 0
 
 [node name="television" type="StaticBody3D"]
 script = ExtResource("3")
@@ -90,8 +81,8 @@ render_target_update_mode = 1
 [node name="Label" type="Label" parent="channelOK/SubViewport"]
 offset_right = 100.0
 offset_bottom = 50.0
-theme_override_fonts/font = SubResource("5")
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("4")
+theme_override_font_sizes/font_size = 20
 text = "4287"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -100,4 +91,24 @@ vertical_alignment = 1
 transform = Transform3D(-0.319105, -2.33482e-15, 1.51935e-08, -2.78971e-08, 2.67072e-08, -0.173793, 0, -1.00171, -1.24548e-08, 0, 0.265856, -0.0591348)
 visible = false
 mesh = SubResource("6")
-surface_material_override/0 = ExtResource("5")
+surface_material_override/0 = SubResource("8")
+
+[node name="SubViewport" type="SubViewport" parent="channelKO"]
+size = Vector2(240, 120)
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 1
+
+[node name="background" type="ColorRect" parent="channelKO/SubViewport"]
+offset_right = 240.0
+offset_bottom = 120.0
+color = Color(0.96, 0.43, 0.4, 1)
+
+[node name="Label" type="Label" parent="channelKO/SubViewport"]
+offset_right = 240.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1

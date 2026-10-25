@@ -5,6 +5,7 @@
 [ext_resource type="Material" path="res://materials/red_cloth.tres" id="3"]
 [ext_resource type="Script" path="res://zooms/remoteControlViewport.gd" id="4"]
 [ext_resource type="PackedScene" path="res://common/gamePad/navigation.tscn" id="6"]
+[ext_resource type="FontFile" path="res://ressources/fonts/Jersey10.ttf" id="7"]
 
 [sub_resource type="BoxMesh" id="1"]
 size = Vector3(2, 2, 2)
@@ -18,6 +19,7 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="StandardMaterial3D" id="4"]
 resource_local_to_scene = true
 albedo_texture = SubResource("3")
+texture_filter = 0
 
 [sub_resource type="Environment" id="5"]
 background_mode = 1
@@ -38,15 +40,16 @@ mesh = SubResource("2")
 surface_material_override/0 = SubResource("4")
 
 [node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2(200, 50)
+size = Vector2(200, 60)
 usage = 0
 render_target_v_flip = true
 script = ExtResource("4")
 
 [node name="Label" type="Label" parent="SubViewport"]
 offset_right = 200.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 36
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("7")
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
