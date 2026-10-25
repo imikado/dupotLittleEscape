@@ -10,18 +10,13 @@
 
 *Search every room, solve the puzzles and open the exit door.*
 
-**[▶ Play it in your browser](https://dupot-org.itch.io/little-escape)** · **[Get it on Flathub](https://flathub.org/apps/org.dupot.littleescape)**
+**[▶ Play it in your browser](https://dupot-org.itch.io/little-escape)**
 
 Free · Linux x86_64 · Web · English & French · Made with Godot 4.7
 
-[![Flathub](https://img.shields.io/flathub/v/org.dupot.littleescape?logo=flathub&logoColor=white&label=Flathub&color=4a90d9)](https://flathub.org/apps/org.dupot.littleescape)
-[![Snap Store](https://img.shields.io/badge/Snap%20Store-dupot--little--escape-82BEA0?logo=snapcraft&logoColor=white)](https://snapcraft.io/dupot-little-escape)
 [![itch.io](https://img.shields.io/badge/itch.io-Play%20in%20browser-FA5C5C?logo=itchdotio&logoColor=white)](https://dupot-org.itch.io/little-escape)
 [![Godot 4.7](https://img.shields.io/badge/Godot-4.7-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org)
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](LICENSE)
-
-<a href="https://flathub.org/apps/org.dupot.littleescape"><img width="200" alt="Get it on Flathub" src="https://flathub.org/api/badge?locale=en"/></a>
-<a href="https://snapcraft.io/dupot-little-escape"><img width="200" alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"/></a>
 
 </div>
 
@@ -106,6 +101,7 @@ Helper scripts (set `GODOT` if Godot isn't in your `PATH`):
 | `./export_flathub.sh` | Exports the `.pck` and builds `export/Linux/bundle.tar.gz` (the GitHub release asset used by the Flathub manifest), and prints its sha256 |
 | `./build_snap.sh [--install]` | Exports the game and packs the `.snap` in `export/Linux/snap/` (needs `snapcraft`) |
 | `tools/capture/capture.sh` | Records a guided tour of the flat and regenerates the screenshots and the promo GIF (needs `ffmpeg`, takes about 7 minutes) |
+| `tools/capture/screenshots.sh [shot...]` | Regenerates only the screenshots, with the same shots as `capture.sh` (a few seconds, no `ffmpeg`) |
 | `godot --headless --path . -s tools/icons/generate_icons.gd` | Regenerates the PNG icons from `tools/icons/icon.svg` |
 
 ### Releasing a new version
