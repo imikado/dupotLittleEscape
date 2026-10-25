@@ -1,0 +1,46 @@
+title: Little Escape
+name: dupot-little-escape
+base: core24
+version: "1.0.0"
+summary: Escape from the flat by solving its puzzles
+description: |
+  You are locked in a small flat: search the bedroom, the bathroom, the living
+  room and the kitchen to find clues, keys and secret codes, and open the exit door
+  Explore in first person with the keyboard, a gamepad or the touch controls
+  Available in English and French
+  This Game was made with Godot 4.7
+
+grade: stable
+confinement: strict
+contact: imikado@gmail.com
+license: LGPL-2.1-only
+issues: https://github.com/imikado/dupotLittleEscape/issues
+source-code: https://github.com/imikado/dupotLittleEscape/
+website: https://www.dupot.org/games.html
+
+apps:
+  dupot-little-escape:
+    command: dupotLittleEscape.x86_64
+    extensions: [gnome]
+    plugs:
+      - opengl
+      - audio-playback
+      - x11
+      - wayland
+      - joystick
+
+parts:
+  game:
+    plugin: dump
+    source: .
+    organize:
+      dupotLittleEscape.x86_64: dupotLittleEscape.x86_64
+      dupotLittleEscape.pck: dupotLittleEscape.pck
+    stage:
+      - dupotLittleEscape.x86_64
+      - dupotLittleEscape.pck
+    prime:
+      - dupotLittleEscape.x86_64
+      - dupotLittleEscape.pck
+    stage-packages:
+      - libc6

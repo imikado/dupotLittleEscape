@@ -2,5 +2,18 @@
 .godot/
 # Ancien cache Godot 3
 .import/
-# Builds exportés (Linux / Web)
-export/
+# Builds exportés (Linux / Web) : seuls les fichiers de packaging sont suivis
+export/linux/
+export/web/
+export/HTML5/
+export/Linux/*.pck
+export/Linux/*.x86_64
+export/Linux/bundle/
+export/Linux/bundle.tar.gz
+export/Linux/flatpak/icons/*.import
+export/Linux/screenshots/*.import
+export/Linux/snap/*.pck
+export/Linux/snap/*.x86_64
+export/Linux/snap/*.snap
+export/promo/*.mp4
+override.cfg

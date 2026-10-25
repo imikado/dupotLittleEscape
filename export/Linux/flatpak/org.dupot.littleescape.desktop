@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Little Escape
+Comment=Escape from the flat by solving its puzzles
+Exec=littleescape
+Type=Application
+Icon=org.dupot.littleescape
+Categories=Game;LogicGame;
+Keywords=game;escape;puzzle;room;adventure;
