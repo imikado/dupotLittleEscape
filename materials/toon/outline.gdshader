@@ -38,13 +38,22 @@ void fragment() {
 	float center_depth = linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX);
 	vec3 center_normal = view_normal(SCREEN_UV);
 
+	float depths[4];
+	for (int i = 0; i < 4; i++) {
+		depths[i] = linear_depth(SCREEN_UV + offsets[i], INV_PROJECTION_MATRIX);
+	}
+
 	float edge = 0.0;
 	for (int i = 0; i < 4; i++) {
-		vec2 uv = SCREEN_UV + offsets[i];
-		float depth = linear_depth(uv, INV_PROJECTION_MATRIX);
+		float depth = depths[i];
+		// opposite neighbour (offsets go by pairs: +x/-x, +y/-y)
+		float opposite = depths[i ^ 1];
+		// on a plane 1/depth is linear on screen: a surface seen almost edge-on has big depth gaps
+		// between pixels but stays planar, only a real silhouette breaks the plane
+		float plane_error = abs(center_depth / depth + center_depth / opposite - 2.0);
 		// only the far side of a silhouette gets the line, so it stays thin
-		float depth_edge = step(depth_threshold, (depth - center_depth) / center_depth);
-		float normal_edge = step(normal_threshold, 1.0 - dot(center_normal, view_normal(uv)));
+		float depth_edge = step(depth_threshold, (depth - center_depth) / center_depth) * step(depth_threshold * 0.5, plane_error);
+		float normal_edge = step(normal_threshold, 1.0 - dot(center_normal, view_normal(SCREEN_UV + offsets[i])));
 		edge = max(edge, max(depth_edge, normal_edge));
 	}
 

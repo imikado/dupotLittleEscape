@@ -36,12 +36,20 @@ void fragment() {
 	float down = linear_depth(SCREEN_UV - vec2(0.0, pixel.y), INV_PROJECTION_MATRIX);
 	float up = linear_depth(SCREEN_UV + vec2(0.0, pixel.y), INV_PROJECTION_MATRIX);
 
-	// silhouettes: a neighbour is much farther
-	float far_gap = max(max(left, right), max(down, up)) - center;
-	float edge = step(depth_threshold, far_gap / center);
+	// on a plane 1/depth is linear on screen: its second derivative is ~0 on flat surfaces,
+	// even seen almost edge-on (big depth gaps between pixels), and only breaks on silhouettes / creases
+	float plane_error_x = abs(center / left + center / right - 2.0);
+	float plane_error_y = abs(center / down + center / up - 2.0);
 
-	// creases: second derivative of the depth (flat surfaces give ~0, even when inclined)
-	float crease = max(abs(left + right - 2.0 * center), abs(down + up - 2.0 * center)) / center;
+	// silhouettes: a neighbour is much farther and not on the same plane
+	float far_gap_x = max(left, right) - center;
+	float far_gap_y = max(down, up) - center;
+	float edge = max(
+		step(depth_threshold, far_gap_x / center) * step(depth_threshold * 0.5, plane_error_x),
+		step(depth_threshold, far_gap_y / center) * step(depth_threshold * 0.5, plane_error_y));
+
+	// creases: the surface orientation changes
+	float crease = max(plane_error_x, plane_error_y);
 	edge = max(edge, step(crease_threshold * 0.1, crease));
 
 	float fade = 1.0 - smoothstep(fade_start, fade_end, center);
