@@ -19,12 +19,12 @@ var equipment=null
 
 var _isEnable=true
 
-export(bool) var displayLeftNav=false
-export(bool) var displayLeftJoystick=false
-export(bool) var displayRightJoystick=false
+@export var displayLeftNav: bool=false
+@export var displayLeftJoystick: bool=false
+@export var displayRightJoystick: bool=false
 
-export(bool) var displayButtonA=false
-export(bool) var displayButtonB=false
+@export var displayButtonA: bool=false
+@export var displayButtonB: bool=false
 
 func _ready():
 	if GlobalGame.isGamepadEnabled():
@@ -68,7 +68,7 @@ func enableButton():
 
 func setEquipment(item_):
 	var realItem=GlobalItems.getItem(item_)
-	$button/Sprite.texture=realItem.getTexture()
+	$button/Sprite2D.texture=realItem.getTexture()
 	enableButton()
 	
 

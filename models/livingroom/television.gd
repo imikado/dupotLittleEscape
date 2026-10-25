@@ -1,4 +1,4 @@
-extends StaticBody
+extends StaticBody3D
 
 var defaultProps={
 	"channel":"0"

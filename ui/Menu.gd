@@ -22,7 +22,7 @@ func _on_CheckButton_toggled(button_pressed):
 
 
 func _on_play_pressed():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 	pass # Replace with function body.
 
 

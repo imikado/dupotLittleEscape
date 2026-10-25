@@ -1,4 +1,4 @@
-extends MeshInstance
+extends MeshInstance3D
 
 
 # Declare member variables here. Examples:
@@ -6,11 +6,11 @@ extends MeshInstance
 # var b = "text"
 
 func refreshTime():
-	var datetimeNow= OS.get_datetime()
+	var datetimeNow= Time.get_datetime_dict_from_system()
 	
 	var timeString=str("%02d"%[datetimeNow.hour])+":"+str("%02d"%[datetimeNow.minute])
 	
-	$Viewport/Panel/Label.text=timeString
+	$SubViewport/Panel/Label.text=timeString
 	
 	
 	

@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var room="flat"
 
@@ -29,7 +29,7 @@ func _ready():
 
 
 func gotToInventory():
-	get_tree().change_scene("res://ui/inventory.tscn")
+	get_tree().change_scene_to_file("res://ui/inventory.tscn")
 
 
 func _on_Player_gotoInventory():
@@ -39,7 +39,7 @@ func _on_Player_gotoInventory():
 
 func _on_bedroom_gotoClosetZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/bedroom_closet.tscn")
+	get_tree().change_scene_to_file("res://zooms/bedroom_closet.tscn")
 
 func savePlayerPosition():
 	GlobalPlayer.savePosition($Player.global_transform.origin)
@@ -48,27 +48,27 @@ func savePlayerPosition():
 
 func _on_livingroom_gotoChessBoardZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/livingroom_chessBoard.tscn")
+	get_tree().change_scene_to_file("res://zooms/livingroom_chessBoard.tscn")
 
 
 func _on_livingroom_gotoRemoteControlZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/livingroom_remoteControl.tscn")
+	get_tree().change_scene_to_file("res://zooms/livingroom_remoteControl.tscn")
 	pass # Replace with function body.
 
 
 func _on_bathroom_gotoBathroomSecretBoxZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/bathroom_secretBox.tscn")
+	get_tree().change_scene_to_file("res://zooms/bathroom_secretBox.tscn")
 	pass # Replace with function body.
 
 
 func _on_kitchen_gotoKitchenSecretBoxZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/kitchen_secretBox.tscn")
+	get_tree().change_scene_to_file("res://zooms/kitchen_secretBox.tscn")
 	pass # Replace with function body.
 
 
 func _on_exitDoor_exitDoorOpened():
-	get_tree().change_scene("res://ui/end.tscn")
+	get_tree().change_scene_to_file("res://ui/end.tscn")
 	pass # Replace with function body.

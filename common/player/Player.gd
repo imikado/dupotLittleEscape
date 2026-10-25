@@ -1,4 +1,4 @@
-extends KinematicBody
+extends CharacterBody3D
 
 signal gotoInventory
 
@@ -20,7 +20,7 @@ var pageDown=false
 var useTouch=false
 
 func _ready():
-	GlobalGame.initCamera($ARVROrigin,Vector3())
+	GlobalGame.initCamera($XROrigin3D,Vector3())
 
 func getCameraPosition():
 	return global_transform.basis
@@ -58,16 +58,18 @@ func _physics_process(delta):
 	
 	if rotateX!=0:
 		
-		global_transform.basis=global_transform.basis.rotated(Vector3(0,1,0),deg2rad( rotateX * ROTATE_SPEED) * delta)
+		global_transform.basis=global_transform.basis.rotated(Vector3(0,1,0),deg_to_rad( rotateX * ROTATE_SPEED) * delta)
 	
 		
 	
 	if rotateY!=0:
 		
-		$ARVROrigin.rotate_object_local(Vector3(1,0,0),deg2rad( rotateY * ROTATE_SPEED) * delta)
+		$XROrigin3D.rotate_object_local(Vector3(1,0,0),deg_to_rad( rotateY * ROTATE_SPEED) * delta)
 	
 
-	vel = move_and_slide(dir)
+	set_velocity(dir)
+	move_and_slide()
+	vel = velocity
 
 	if Input.is_action_just_pressed("ui_accept"):
 		pushButtonA()

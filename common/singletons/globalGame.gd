@@ -23,10 +23,9 @@ func _ready():
 
 func initCamera(arvrOrigin_,vectorNonVr_):
 	return
-	var vr_interface=ARVRServer.find_interface("Native mobile")
+	var vr_interface=XRServer.find_interface("Native mobile")
 	if vr_interface and vr_interface.initialize():
-			get_viewport().arvr=isVRenabled()
-			get_viewport().hdr=false
+			get_viewport().use_xr=isVRenabled()
 
 	if !isVRenabled():
 		pass

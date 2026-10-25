@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var minLine=1
 var currentLine=1
@@ -9,7 +9,7 @@ var maxNumber=9
 
 var codeList=[0,0,0,0]
 
-export(Array,int) var rightCode=[0,0,0,0]
+@export var rightCode=[0,0,0,0] # (Array,int)
 
 signal correctCode
 
@@ -72,16 +72,16 @@ func _ready():
 
 func unselectLine(number_):
 	var node = get_node("bloc/line"+str(number_))
-	var material = node.get_surface_material(0)
+	var material = node.get_surface_override_material(0)
 	material.albedo_color = Color(1, 1,1.25)
-	node.set_surface_material(0, material)
+	node.set_surface_override_material(0, material)
 
 	
 func selectLine(number_):
 	var node = get_node("bloc/line"+str(number_))
-	var material = node.get_surface_material(0)
+	var material = node.get_surface_override_material(0)
 	material.albedo_color = Color(1, 0, 0,0.5)
-	node.set_surface_material(0, material)
+	node.set_surface_override_material(0, material)
 
 func setLine(number_,text_):
 	get_node("bloc/line"+str(number_)+"/viewport/Label").text=text_

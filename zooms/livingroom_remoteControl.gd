@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var room="livingRoom"
 
@@ -28,7 +28,7 @@ var useTouch=false
 #Tour rouge  3
 
 func _ready():
-	GlobalGame.initCamera($ARVROrigin,Vector3(0,0.8,-0.7))
+	GlobalGame.initCamera($XROrigin3D,Vector3(0,0.8,-0.7))
 
 func _physics_process(delta):
 	var dir = Vector3()
@@ -80,15 +80,15 @@ func pushButtonA():
 		screen=screen.substr(0, screen.length()-1  )	
 	elif touchPressed=="A":
 		GlobalRoom.saveStateForObject(room,"tv",{"channel":screen})
-		get_tree().change_scene("res://flat.tscn")
+		get_tree().change_scene_to_file("res://flat.tscn")
 		return
 	else:
 		screen+=""+ touchPressed
 	
-	$Viewport/Label.text=screen
+	$SubViewport/Label.text=screen
 		
 func pushButtonB():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 		
 func resetKeys():
 	if useTouch:

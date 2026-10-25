@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 
 var speed=3
@@ -18,7 +18,7 @@ func _ready():
 	
 	#GlobalPlayer.addItem(GlobalItems.ID.PAPER)
 	#GlobalPlayer.addItem(GlobalItems.ID.POSTIT)
-	GlobalGame.initCamera($ARVROrigin,Vector3(0,0,0.4))
+	GlobalGame.initCamera($XROrigin3D,Vector3(0,0,0.4))
 		
 	var itemList=GlobalPlayer.getItemList()
 	
@@ -99,7 +99,7 @@ func pocessInput():
 		
  
 func pushButtonB():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 
 
 func _on_navigation_movePlayer(joystickVector_):

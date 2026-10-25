@@ -18,5 +18,5 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	get_tree().change_scene("res://ui/Menu.tscn")
+	get_tree().change_scene_to_file("res://ui/Menu.tscn")
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-extends MeshInstance
+extends MeshInstance3D
 
 func open():
 	rotate(Vector3(0,1,0),-85)

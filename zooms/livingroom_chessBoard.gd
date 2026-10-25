@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var vel = Vector3()
 const SPEED= 160
@@ -14,7 +14,7 @@ var useTouch=false
 
 
 func _ready():
-	GlobalGame.initCamera($ARVROrigin,Vector3(0,0,0.4))
+	GlobalGame.initCamera($XROrigin3D,Vector3(0,0,0.4))
 		
 	$chess_board.disableInfo()
 
@@ -45,7 +45,7 @@ func _physics_process(delta):
 	dir += -global_transform.basis.z * moving * SPEED * delta
 	
 	if rotate!=0:
-		$chess_board.rotate_y( deg2rad( rotate * ROTATE_SPEED) * delta )
+		$chess_board.rotate_y( deg_to_rad( rotate * ROTATE_SPEED) * delta )
 	
 	if moving!=0:
 		$chess_board.translate(   Vector3(0,  (moving * ROTATE_SPEED) * delta ,0 ))
@@ -78,7 +78,7 @@ func pocessInput():
 		useTouch=false
 		
 func pushButtonB():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 	
 
 
