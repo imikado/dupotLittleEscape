@@ -56,11 +56,11 @@ func pushButtonA():
 		return
 		
 	if $toilet/secretBoxWithCode.isCodeCorrect():
-		showInfo("Code ok")
+		showInfo("INFO_CODE_OK")
 		$toilet/secretBoxWithCode.unlock()
 
 	else:
-		showInfo("Code incorrect")
+		showInfo("INFO_CODE_WRONG")
 
 
 func _on_navigation_movePlayer(joystickVector_):

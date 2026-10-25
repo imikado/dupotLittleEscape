@@ -14,23 +14,38 @@ enum ID {
 var itemList={
 
 	ID.POSTIT:{
-		"inventory":"postit"
+		"inventory":"postit",
+		"name":"ITEM_POSTIT",
+		"scene":"res://models/bedroom/postit.tscn",
 	},
 	ID.PAPER:{
-		"inventory":"paper"
+		"inventory":"paper",
+		"name":"ITEM_PAPER",
+		"scene":"res://models/bedroom/paper.tscn",
 	},
 	ID.BEDROOM_KEY:{
-		"inventory":"bedroom_key"
+		"inventory":"bedroom_key",
+		"name":"ITEM_BEDROOM_KEY",
+		"scene":"res://models/bedroom/bedroom_key.tscn",
 	},
 	ID.BATHROOM_KEY:{
-		"inventory":"bathroom_key"
+		"inventory":"bathroom_key",
+		"name":"ITEM_BATHROOM_KEY",
+		"scene":"res://models/bedroom/bedroom_key.tscn",
+		"material":"res://materials/metal.tres",
 	},
 	ID.KITCHEN_KEY:{
-		"inventory":"kitchen_key"
+		"inventory":"kitchen_key",
+		"name":"ITEM_KITCHEN_KEY",
+		"scene":"res://models/bedroom/bedroom_key.tscn",
+		"material":"res://materials/red_cloth.tres",
 	},
 	ID.EXIT_KEY:{
-		"inventory":"exit_key"
-	},		
+		"inventory":"exit_key",
+		"name":"ITEM_EXIT_KEY",
+		"scene":"res://models/bedroom/bedroom_key.tscn",
+		"material":"res://materials/wall.tres",
+	},
 }
 
 

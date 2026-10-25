@@ -11,7 +11,7 @@ func _ready():
 
 
 func displayInfo():
-	showInfo("Voulez vous voir la télécommande ?")
+	showInfo("INFO_SEE_REMOTE")
 
 
 func action():

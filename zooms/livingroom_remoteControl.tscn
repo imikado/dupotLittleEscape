@@ -45,8 +45,8 @@ script = ExtResource("4")
 [node name="Label" type="Label" parent="SubViewport"]
 offset_right = 200.0
 offset_bottom = 50.0
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="navigation" parent="." instance=ExtResource("6")]
 displayLeftNav = true

@@ -24,9 +24,9 @@ func switchOffScreen():
 	
 func displayInfo():
 	if props.state==CLOSED:
-		showInfo("Voulez-vous allumer l'ordinateur ?")
+		showInfo("INFO_LAPTOP_ON")
 	else:
-		showInfo("Voulez-vous éteindre l'ordinateur ?")
+		showInfo("INFO_LAPTOP_OFF")
 
 
 func action():

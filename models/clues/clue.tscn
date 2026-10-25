@@ -33,8 +33,8 @@ render_target_v_flip = true
 offset_right = 40.0
 offset_bottom = 40.0
 text = "A=9"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="background" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, -0.6, 0, 1, -4.37114e-08, 0, 0, 0)

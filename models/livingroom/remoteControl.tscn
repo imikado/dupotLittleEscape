@@ -49,6 +49,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxShape3D" id="2"]
+size = Vector3(2, 2, 2)
 
 [sub_resource type="CylinderMesh" id="3"]
 

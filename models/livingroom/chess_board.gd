@@ -11,7 +11,7 @@ func _ready():
 
 
 func displayInfo():
-	showInfo("Voulez-vous voir\n le jeu d'echec ?")
+	showInfo("INFO_SEE_CHESS")
 
 func disableInfo():
 	$info.visible=false

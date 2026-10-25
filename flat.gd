@@ -28,13 +28,8 @@ func _ready():
 	$doors/exit/exitDoor.init(room,"exit_door",false,GlobalItems.ID.EXIT_KEY)
 
 
-func gotToInventory():
-	get_tree().change_scene_to_file("res://ui/inventory.tscn")
-
-
 func _on_Player_gotoInventory():
-	savePlayerPosition()
-	gotToInventory()
+	$inventoryPanel.toggle()
 
 
 func _on_bedroom_gotoClosetZoom():

@@ -61,7 +61,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.647059, 0.839216, 0.945098, 1)
 theme_override_fonts/font = ExtResource("2")
 theme_override_font_sizes/font_size = 18
-text = "[Entrée] Oui"
+text = "INFO_HINT_YES"
 horizontal_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]

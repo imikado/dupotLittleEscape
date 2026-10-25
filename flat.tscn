@@ -13,10 +13,13 @@
 [ext_resource type="PackedScene" path="res://models/doors/exitDoor.tscn" id="11"]
 [ext_resource type="PackedScene" path="res://common/gamePad/navigation.tscn" id="12"]
 
+[ext_resource type="PackedScene" path="res://ui/inventory/inventoryPanel.tscn" id="inventoryPanel_1"]
+
 [sub_resource type="PlaneMesh" id="1"]
 material = ExtResource("6")
 
 [sub_resource type="ConcavePolygonShape3D" id="2"]
+backface_collision = true
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
 [sub_resource type="PlaneMesh" id="3"]
@@ -131,8 +134,8 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "EXIT"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="rooms" type="Node3D" parent="."]
 
@@ -149,6 +152,8 @@ displayLeftJoystick = true
 displayRightJoystick = true
 displayButtonA = true
 displayButtonB = true
+
+[node name="inventoryPanel" parent="." instance=ExtResource("inventoryPanel_1")]
 
 [connection signal="gotoInventory" from="Player" to="." method="_on_Player_gotoInventory"]
 [connection signal="exitDoorOpened" from="doors/exit/exitDoor" to="." method="_on_exitDoor_exitDoorOpened"]

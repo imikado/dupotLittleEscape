@@ -89,7 +89,8 @@ grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 2
 theme_override_fonts/font = SubResource("1")
-text = "Félicitations ;)"
+theme_override_font_sizes/font_size = 60
+text = "END_CONGRATS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,7 +105,7 @@ offset_top = 323.95
 offset_right = 605.932
 offset_bottom = 387.95
 theme = SubResource("4")
-text = "Retour au menu"
+text = "END_BACK_MENU"
 __meta__ = {
 "_edit_use_anchors_": false
 }

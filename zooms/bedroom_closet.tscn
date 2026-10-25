@@ -24,7 +24,7 @@ displayButtonB = true
 [node name="XROrigin3D" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="XROrigin3D"]
-transform = Transform3D(-1, -2.66454e-15, -8.74227e-08, 3.82095e-09, 0.999044, -0.0437066, 8.73392e-08, -0.0437066, -0.999044, -0.111073, 1.93127, 0.178959)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.13, 1.83, 0.3)
 environment = SubResource("1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]

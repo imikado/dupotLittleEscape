@@ -26,12 +26,12 @@ func closeDrawer():
 
 func displayInfo():
 	if props.state==CLOSED:
-		showInfo("Voulez-vous l'ouvrir ?")
+		showInfo("INFO_OPEN_IT")
 	else:
 		if props.item==GlobalItems.ID.BEDROOM_KEY:
-			showInfo("Voulez-vous prendre le post-it ?")
+			showInfo("INFO_TAKE_POSTIT")
 		else:
-			showInfo("Voulez-vous la fermer ?")
+			showInfo("INFO_CLOSE_IT")
 
 
 func action():

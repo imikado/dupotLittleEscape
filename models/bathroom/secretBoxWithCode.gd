@@ -121,12 +121,12 @@ func closeCover():
 
 func displayInfo():
 	if props.state==CLOSED:
-		showInfo("Voulez-vous l'ouvrir ?")
+		showInfo("INFO_OPEN_IT")
 	else:
 		if props.item==GlobalItems.ID.KITCHEN_KEY:
-			showInfo("Voulez-vous prendre la clef ?")
+			showInfo("INFO_TAKE_KEY")
 		else:
-			showInfo("Voulez-vous la fermer ?")
+			showInfo("INFO_CLOSE_IT")
 
 
 func action():

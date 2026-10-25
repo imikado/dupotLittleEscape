@@ -11,6 +11,7 @@
 [ext_resource type="Material" path="res://materials/red_cloth.tres" id="9"]
 
 [sub_resource type="BoxShape3D" id="1"]
+size = Vector3(2, 2, 2)
 
 [sub_resource type="ArrayMesh" id="2"]
 _surfaces = [{

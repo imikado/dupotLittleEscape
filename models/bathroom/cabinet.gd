@@ -21,9 +21,9 @@ func closeTap():
 	
 func displayInfo():
 	if props.state==CLOSED:
-		showInfo("Voulez-vous ouvrir le robinet d'eau chaude ?")
+		showInfo("INFO_HOT_WATER_OPEN")
 	else:
-		showInfo("Voulez-vous fermer le robinet d'eau chaude ?")
+		showInfo("INFO_HOT_WATER_CLOSE")
 
 
 func action():

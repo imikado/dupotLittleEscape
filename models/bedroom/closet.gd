@@ -60,12 +60,12 @@ func closeDoors():
 func displayInfo():
 
 	if props.state==CLOSED:
-		showInfo("Voulez-vous ouvrir ?")
+		showInfo("INFO_OPEN_IT")
 	else:
 		if props.item==GlobalItems.ID.BEDROOM_KEY:
-			showInfo("Voulez-vous prendre la clé ?")
+			showInfo("INFO_TAKE_KEY")
 		else:
-			showInfo("Voulez-vous la fermer ?")
+			showInfo("INFO_CLOSE_IT")
 
 
 func action():

@@ -7,15 +7,22 @@ const MIN_TIME=2.5
 
 var tween=null
 
+#only one info panel on screen at a time
+static var current=null
+
 func setText(text_):
 	$CanvasLayer/Panel/VBox/Label.text=text_
 	#questions wait for the player to confirm with ui_accept
-	$CanvasLayer/Panel/VBox/Hint.visible=text_.strip_edges().ends_with("?")
+	$CanvasLayer/Panel/VBox/Hint.visible=tr(text_).strip_edges().ends_with("?")
 
 func showInfo(text_):
 	#info disabled by its parent (ex: zoom scenes)
 	if !is_visible_in_tree():
 		return
+
+	if is_instance_valid(current) and current!=self:
+		current.hideInfo()
+	current=self
 
 	setText(text_)
 
@@ -33,6 +40,8 @@ func showInfo(text_):
 
 
 func hideInfo():
+	if current==self:
+		current=null
 	if tween:
 		tween.kill()
 	$Timer.stop()

@@ -21,11 +21,16 @@ GlobalGame="*res://common/singletons/globalGame.gd"
 GlobalItems="*res://common/singletons/globalItems.gd"
 GlobalPlayer="*res://common/singletons/globalPlayer.gd"
 GlobalRoom="*res://common/singletons/globalRoom.gd"
+PauseMenu="*res://ui/pauseMenu.tscn"
 
 [display]
 
+window/size/viewport_width=1024
+window/size/viewport_height=600
+window/size/mode=3
 window/size/resizable=false
-window/stretch/mode="2d"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
 
 [gdnative]
 
@@ -43,8 +48,7 @@ ui_accept={
 }
 ui_cancel={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194308,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
@@ -88,6 +92,10 @@ ui_page_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://locale/translations.en.translation", "res://locale/translations.fr.translation")
 
 [input_devices]
 

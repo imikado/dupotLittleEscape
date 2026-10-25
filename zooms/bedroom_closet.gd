@@ -49,10 +49,10 @@ func pushButtonA():
 		return
 	
 	if $closet.isSecretCode():
-		showInfo("Code ok")
+		showInfo("INFO_CODE_OK")
 		$closet.unlock()
 	else:
-		showInfo("Code incorrect")
+		showInfo("INFO_CODE_WRONG")
 
 func pushButtonB():
 	get_tree().change_scene_to_file("res://flat.tscn")
