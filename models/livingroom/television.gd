@@ -1,4 +1,4 @@
-extends StaticBody
+extends StaticBody3D
 
 var defaultProps={
 	"channel":"0"
@@ -27,6 +27,9 @@ func refreshState():
 	if props.channel=="2153":
 		$channelOK.visible=true
 	elif props.channel!="0":
+		#wrong channel: show it, so the player knows the code was read but is not the right one
+		$channelKO/SubViewport/Label.text="CH "+props.channel+"\n"+tr("TV_NO_SIGNAL")
+		$channelKO/SubViewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 		$channelKO.visible=true
 		
 

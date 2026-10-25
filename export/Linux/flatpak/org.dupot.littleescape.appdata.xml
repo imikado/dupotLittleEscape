@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.dupot.littleescape</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.1-only</project_license>
+  <name>Little Escape</name>
+  <launchable type="desktop-id">org.dupot.littleescape.desktop</launchable>
+  <developer id="michael.bertocchi">
+    <name>Michael Bertocchi</name>
+  </developer>
+  <summary>Escape from the flat by solving its puzzles</summary>
+  <description>
+    <p>
+      You are locked in a small flat: search the bedroom, the bathroom, the living room and the kitchen to find clues, keys and secret codes, and open the exit door
+    </p>
+    <p>
+      Explore in first person with the keyboard, a gamepad or the touch controls. Available in English and French
+    </p>
+    <p>
+      This Game was made with Godot 4.7
+    </p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://raw.githubusercontent.com/imikado/dupotLittleEscape/51299b58c1af6513429c981126d64046fa2b9b13/export/Linux/screenshots/bedroom.png</image>
+      <caption>The bedroom, where the escape begins</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/imikado/dupotLittleEscape/51299b58c1af6513429c981126d64046fa2b9b13/export/Linux/screenshots/livingroom.png</image>
+      <caption>Search the living room for clues</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/imikado/dupotLittleEscape/51299b58c1af6513429c981126d64046fa2b9b13/export/Linux/screenshots/kitchen.png</image>
+      <caption>The kitchen</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/imikado/dupotLittleEscape/51299b58c1af6513429c981126d64046fa2b9b13/export/Linux/screenshots/bathroom.png</image>
+      <caption>The bathroom</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/imikado/dupotLittleEscape/51299b58c1af6513429c981126d64046fa2b9b13/export/Linux/screenshots/chessboard.png</image>
+      <caption>Look closely at the objects to solve the puzzles</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/imikado/dupotLittleEscape/51299b58c1af6513429c981126d64046fa2b9b13/export/Linux/screenshots/menu.png</image>
+      <caption>Main menu</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://www.dupot.org/games.html</url>
+  <url type="bugtracker">https://github.com/imikado/dupotLittleEscape/issues</url>
+  <url type="vcs-browser">https://github.com/imikado/dupotLittleEscape/</url>
+  <update_contact>imikado@gmail.com</update_contact>
+  <content_rating type="oars-1.1"/>
+  <supports>
+    <control>keyboard</control>
+    <control>gamepad</control>
+    <control>touch</control>
+  </supports>
+  <releases>
+    <release date="2026-10-25" version="1.0.1">
+      <description>
+        <ul>
+          <li>First version for Linux (Flathub, Snap Store) and the web</li>
+          <li>Bugfixes and improvments</li>
+          <li>Cartoon rendering</li>
+        </ul>
+      </description>
+    </release>
+    <
+    
+    <release date="2026-10-25" version="1.0.0">
+      <description>
+        <ul>
+          <li>First version for Linux (Flathub, Snap Store) and the web</li>
+          <li>Cartoon rendering</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

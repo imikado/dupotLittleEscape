@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var room="bedroom"
 
@@ -12,7 +12,7 @@ var pageDown=false
 var useTouch=false
 
 func _ready():
-	GlobalGame.initCamera($ARVROrigin,Vector3(0,0,-0.1))
+	GlobalGame.initCamera($XROrigin3D,Vector3(0,0,-0.1))
 
 	$closet.init(room,"closet",GlobalItems.ID.BEDROOM_KEY)
 
@@ -45,17 +45,17 @@ func _physics_process(delta):
 		
 func pushButtonA():
 	if !$closet.isLocked():
-		get_tree().change_scene("res://flat.tscn")
+		get_tree().change_scene_to_file("res://flat.tscn")
 		return
 	
 	if $closet.isSecretCode():
-		showInfo("Code ok")
+		showInfo("INFO_CODE_OK")
 		$closet.unlock()
 	else:
-		showInfo("Code incorrect")
+		showInfo("INFO_CODE_WRONG")
 
 func pushButtonB():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 
 func showInfo(text_):
 	$info.showInfo(text_)

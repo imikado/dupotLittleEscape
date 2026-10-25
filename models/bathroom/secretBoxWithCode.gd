@@ -9,7 +9,7 @@ var maxNumber=9
 
 var codeList=[0,0,0,0]
 
-export(Array,int) var rightCode=[0,0,0,0]
+@export var rightCode=[0,0,0,0] # (Array,int)
 
 signal correctCode
 
@@ -81,19 +81,20 @@ func resetThenSelectLine(number_):
 
 func unselectLine(number_):
 	var node = get_node("cover/bloc/line"+str(number_))
-	var material = node.get_surface_material(0)
+	var material = node.get_surface_override_material(0)
 	material.albedo_color = Color(1, 1,1.25)
-	node.set_surface_material(0, material)
+	node.set_surface_override_material(0, material)
 
 	
 func selectLine(number_):
 	var node = get_node("cover/bloc/line"+str(number_))
-	var material = node.get_surface_material(0)
+	var material = node.get_surface_override_material(0)
 	material.albedo_color = Color(1, 0, 0,0.5)
-	node.set_surface_material(0, material)
+	node.set_surface_override_material(0, material)
 
 func setLine(number_,text_):
-	get_node("cover/bloc/line"+str(number_)+"/Viewport/Label").text=text_
+	get_node("cover/bloc/line"+str(number_)+"/SubViewport/Label").text=text_
+	get_node("cover/bloc/line"+str(number_)+"/SubViewport").render_target_update_mode=SubViewport.UPDATE_ONCE
 	
 func refreshState():
 	if props.state==OPENED:
@@ -121,12 +122,12 @@ func closeCover():
 
 func displayInfo():
 	if props.state==CLOSED:
-		showInfo("Voulez-vous l'ouvrir ?")
+		showInfo("INFO_OPEN_IT")
 	else:
 		if props.item==GlobalItems.ID.KITCHEN_KEY:
-			showInfo("Voulez-vous prendre la clef ?")
+			showInfo("INFO_TAKE_KEY")
 		else:
-			showInfo("Voulez-vous la fermer ?")
+			showInfo("INFO_CLOSE_IT")
 
 
 func action():

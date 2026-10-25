@@ -1,21 +1,51 @@
-extends Spatial
+extends Node3D
 
-export (float) var time=0.9
+@export var time: float=0.9
+
+#minimum display time so the text can be read on a PC screen
+const MIN_TIME=2.5
+
+var tween=null
+
+#only one info panel on screen at a time
+static var current=null
 
 func setText(text_):
-	$Viewport/Panel/Label.text=text_
+	$CanvasLayer/Panel/VBox/Label.text=text_
+	#questions wait for the player to confirm with ui_accept
+	$CanvasLayer/Panel/VBox/Hint.visible=tr(text_).strip_edges().ends_with("?")
 
 func showInfo(text_):
-	setText(text_)	
-	$MeshInstance.visible=true
-	
-	$Timer.wait_time=time
-	
+	#info disabled by its parent (ex: zoom scenes)
+	if !is_visible_in_tree():
+		return
+
+	if is_instance_valid(current) and current!=self:
+		current.hideInfo()
+	current=self
+
+	setText(text_)
+
+	var panel=$CanvasLayer/Panel
+	if !$CanvasLayer.visible:
+		panel.modulate.a=0.0
+		$CanvasLayer.visible=true
+		if tween:
+			tween.kill()
+		tween=create_tween()
+		tween.tween_property(panel,"modulate:a",1.0,0.15)
+
+	$Timer.wait_time=max(time,MIN_TIME)
 	$Timer.start()
 
 
 func hideInfo():
-	$MeshInstance.visible=false
+	if current==self:
+		current=null
+	if tween:
+		tween.kill()
+	$Timer.stop()
+	$CanvasLayer.visible=false
 
 
 

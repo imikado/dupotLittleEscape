@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var room="flat"
 
@@ -16,8 +16,9 @@ func _ready():
 		$Player.global_transform.origin=GlobalPlayer.getPosition()
 		
 		$Player.loadCameraPosition(GlobalPlayer.getCameraPosition())
+		#teleport: no interpolation from the start position
+		$Player.reset_physics_interpolation()
 	
-	$sky.visible=true
 	
 	$doors/bedroom/door.init(room,"bedroom_door",true,GlobalItems.ID.BEDROOM_KEY)
 	
@@ -28,18 +29,13 @@ func _ready():
 	$doors/exit/exitDoor.init(room,"exit_door",false,GlobalItems.ID.EXIT_KEY)
 
 
-func gotToInventory():
-	get_tree().change_scene("res://ui/inventory.tscn")
-
-
 func _on_Player_gotoInventory():
-	savePlayerPosition()
-	gotToInventory()
+	$inventoryPanel.toggle()
 
 
 func _on_bedroom_gotoClosetZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/bedroom_closet.tscn")
+	get_tree().change_scene_to_file("res://zooms/bedroom_closet.tscn")
 
 func savePlayerPosition():
 	GlobalPlayer.savePosition($Player.global_transform.origin)
@@ -48,27 +44,27 @@ func savePlayerPosition():
 
 func _on_livingroom_gotoChessBoardZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/livingroom_chessBoard.tscn")
+	get_tree().change_scene_to_file("res://zooms/livingroom_chessBoard.tscn")
 
 
 func _on_livingroom_gotoRemoteControlZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/livingroom_remoteControl.tscn")
+	get_tree().change_scene_to_file("res://zooms/livingroom_remoteControl.tscn")
 	pass # Replace with function body.
 
 
 func _on_bathroom_gotoBathroomSecretBoxZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/bathroom_secretBox.tscn")
+	get_tree().change_scene_to_file("res://zooms/bathroom_secretBox.tscn")
 	pass # Replace with function body.
 
 
 func _on_kitchen_gotoKitchenSecretBoxZoom():
 	savePlayerPosition()
-	get_tree().change_scene("res://zooms/kitchen_secretBox.tscn")
+	get_tree().change_scene_to_file("res://zooms/kitchen_secretBox.tscn")
 	pass # Replace with function body.
 
 
 func _on_exitDoor_exitDoorOpened():
-	get_tree().change_scene("res://ui/end.tscn")
+	get_tree().change_scene_to_file("res://ui/end.tscn")
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var room='kitchen'
 
@@ -13,7 +13,7 @@ var pageDown=false
 var useTouch=false
 
 func _ready():
-	GlobalGame.initCamera($ARVROrigin,Vector3(0,0.3,-0.2))
+	GlobalGame.initCamera($XROrigin3D,Vector3(0,0.3,-0.2))
 		
 	$secretBoxWithCode.init(room,"secretBox",GlobalItems.ID.EXIT_KEY)
 
@@ -46,18 +46,18 @@ func _physics_process(delta):
 
 func pushButtonA():
 	if !secretBox.isLocked():
-		get_tree().change_scene("res://flat.tscn")
+		get_tree().change_scene_to_file("res://flat.tscn")
 		return
 	
 	if secretBox.isCodeCorrect():
-		showInfo("Code ok")
+		showInfo("INFO_CODE_OK")
 		secretBox.unlock()
 
 	else:
-		showInfo("Code incorrect")
+		showInfo("INFO_CODE_WRONG")
 
 func pushButtonB():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 
 func showInfo(text_):
 	secretBox.showInfo(text_)

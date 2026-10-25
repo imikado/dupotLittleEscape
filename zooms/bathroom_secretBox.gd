@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 
 var room='bathroom'
@@ -14,7 +14,7 @@ var useTouch=false
 
 
 func _ready():
-	GlobalGame.initCamera($ARVROrigin,Vector3(0,0,0.4))
+	GlobalGame.initCamera($XROrigin3D,Vector3(0,0,0.4))
 	
 	$toilet/secretBoxWithCode.init(room,"secretBoxWithCode",GlobalItems.ID.KITCHEN_KEY)
 	#$toilet/secretBoxWithCode.disableInfo()
@@ -48,19 +48,19 @@ func showInfo(text_):
 	$toilet/secretBoxWithCode.showInfo(text_)
 	
 func pushButtonB():
-	get_tree().change_scene("res://flat.tscn")
+	get_tree().change_scene_to_file("res://flat.tscn")
 	
 func pushButtonA():
 	if !$toilet/secretBoxWithCode.isLocked():
-		get_tree().change_scene("res://flat.tscn")
+		get_tree().change_scene_to_file("res://flat.tscn")
 		return
 		
 	if $toilet/secretBoxWithCode.isCodeCorrect():
-		showInfo("Code ok")
+		showInfo("INFO_CODE_OK")
 		$toilet/secretBoxWithCode.unlock()
 
 	else:
-		showInfo("Code incorrect")
+		showInfo("INFO_CODE_WRONG")
 
 
 func _on_navigation_movePlayer(joystickVector_):

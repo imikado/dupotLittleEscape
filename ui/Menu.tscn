@@ -1,15 +1,29 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene format=3]
 
-[ext_resource path="res://ui/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Ubuntu-B.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://ui/menu/background.png" type="Texture" id=3]
-[ext_resource path="res://ressources/gamepad.png" type="Texture" id=4]
+[ext_resource type="Script" path="res://ui/Menu.gd" id="1"]
+[ext_resource type="FontFile" path="res://Ubuntu-B.ttf" id="2"]
+[ext_resource type="Texture2D" path="res://ui/menu/background.png" id="3"]
+[ext_resource type="Texture2D" path="res://ressources/gamepad.png" id="4"]
 
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 2 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("2")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.117647, 0.333333, 0.376471, 1 )
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.117647, 0.333333, 0.376471, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -19,104 +33,120 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="Theme" id=3]
-Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
-Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
-Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-Button/constants/hseparation = 2
-Button/fonts/font = SubResource( 1 )
+[sub_resource type="Theme" id="3"]
+Button/colors/font_color = Color(0.88, 0.88, 0.88, 1)
+Button/colors/font_color_disabled = Color(0.9, 0.9, 0.9, 0.2)
+Button/colors/font_color_hover = Color(0.94, 0.94, 0.94, 1)
+Button/colors/font_color_pressed = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/fonts/font = SubResource("1")
+Button/font_sizes/font_size = 16
 Button/styles/disabled = null
 Button/styles/focus = null
-Button/styles/hover = SubResource( 2 )
-Button/styles/normal = SubResource( 2 )
-Button/styles/pressed = SubResource( 2 )
+Button/styles/hover = SubResource("2")
+Button/styles/normal = SubResource("2")
+Button/styles/pressed = SubResource("2")
 
 [node name="menu" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="background" type="Sprite" parent="."]
-position = Vector2( 515.216, 295.703 )
-scale = Vector2( 1.03736, 1.06801 )
-texture = ExtResource( 3 )
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(512, 300)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 292.0
-margin_top = 180.0
-margin_right = 659.0
-margin_bottom = 490.0
-color = Color( 0.0862745, 0.266667, 0.52549, 0.403922 )
+offset_left = 292.0
+offset_top = 180.0
+offset_right = 659.0
+offset_bottom = 490.0
+color = Color(0.0862745, 0.266667, 0.52549, 0.403922)
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="play" type="Button" parent="."]
-margin_left = 343.389
-margin_top = 239.789
-margin_right = 602.389
-margin_bottom = 336.789
-theme = SubResource( 3 )
-text = "Jouer"
+offset_left = 343.389
+offset_top = 239.789
+offset_right = 602.389
+offset_bottom = 336.789
+theme = SubResource("3")
+text = "MENU_PLAY"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="gamepadEnabled" type="CheckButton" parent="."]
-margin_left = 378.375
-margin_top = 358.176
-margin_right = 579.375
-margin_bottom = 427.176
-text = "Navigation tactile ?"
+offset_left = 378.375
+offset_top = 358.176
+offset_right = 579.375
+offset_bottom = 427.176
+text = "MENU_TOUCH"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="languageBloc" type="HBoxContainer" parent="."]
+offset_left = 343.0
+offset_top = 435.0
+offset_right = 602.0
+offset_bottom = 471.0
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="languageBloc"]
+layout_mode = 2
+text = "MENU_LANGUAGE"
+
+[node name="language" type="OptionButton" parent="languageBloc"]
+layout_mode = 2
 
 [node name="blocGamepad" type="ColorRect" parent="."]
-margin_left = 689.271
-margin_top = 121.158
-margin_right = 1010.27
-margin_bottom = 431.158
-color = Color( 0.0862745, 0.52549, 0.411765, 0.403922 )
+offset_left = 689.271
+offset_top = 121.158
+offset_right = 1010.27
+offset_bottom = 431.158
+color = Color(0.0862745, 0.52549, 0.411765, 0.403922)
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="gamepad" type="Sprite" parent="blocGamepad"]
-position = Vector2( 169.446, 91.864 )
-scale = Vector2( 0.229364, 0.236141 )
-texture = ExtResource( 4 )
+[node name="gamepad" type="Sprite2D" parent="blocGamepad"]
+position = Vector2(169.446, 91.864)
+scale = Vector2(0.229364, 0.236141)
+texture = ExtResource("4")
 
 [node name="Label" type="Label" parent="blocGamepad"]
-margin_left = 51.6189
-margin_top = 185.262
-margin_right = 155.619
-margin_bottom = 199.262
-text = "N: Déplacement"
+offset_left = 51.6189
+offset_top = 185.262
+offset_right = 155.619
+offset_bottom = 199.262
+text = "MENU_GAMEPAD_MOVE"
 
 [node name="Label3" type="Label" parent="blocGamepad"]
-margin_left = 51.6189
-margin_top = 257.262
-margin_right = 155.619
-margin_bottom = 271.262
-text = "A: Action"
+offset_left = 51.6189
+offset_top = 257.262
+offset_right = 155.619
+offset_bottom = 271.262
+text = "MENU_GAMEPAD_ACTION"
 
 [node name="Label4" type="Label" parent="blocGamepad"]
-margin_left = 51.6189
-margin_top = 275.262
-margin_right = 180.619
-margin_bottom = 289.262
-text = "B: Retour/Inventaire"
+offset_left = 51.6189
+offset_top = 275.262
+offset_right = 180.619
+offset_bottom = 289.262
+text = "MENU_GAMEPAD_BACK"
 
 [node name="Label2" type="Label" parent="blocGamepad"]
-margin_left = 51.6189
-margin_top = 209.262
-margin_right = 155.619
-margin_bottom = 223.262
-text = "H: monter/descendre la tête
-(en l'absence d'un casque VR)"
+offset_left = 51.6189
+offset_top = 209.262
+offset_right = 155.619
+offset_bottom = 223.262
+text = "MENU_GAMEPAD_HEAD"
 
-[node name="Camera" type="Camera" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
 current = true
 
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
 [connection signal="toggled" from="gamepadEnabled" to="." method="_on_gamepadEnabled_toggled"]
+[connection signal="item_selected" from="languageBloc/language" to="." method="_on_language_item_selected"]

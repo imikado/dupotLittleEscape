@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Little Escape
+Comment=Escape from the flat by solving its puzzles
+Exec=dupot-little-escape
+Type=Application
+Icon=${SNAP}/meta/gui/dupot-little-escape.png
+Categories=Game;LogicGame;
+Keywords=game;escape;puzzle;room;adventure;

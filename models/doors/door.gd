@@ -20,9 +20,9 @@ func closeDoor():
 
 func displayInfo():
 	if props.state==CLOSED:
-		showInfo("Voulez-vous l'ouvrir ?")
+		showInfo("INFO_OPEN_IT")
 	else:
-		showInfo("Voulez-vous la fermer ?")
+		showInfo("INFO_CLOSE_IT")
 
 
 func action():
@@ -34,9 +34,9 @@ func action():
 				props.locked=false
 				saveProps()
 				
-				showInfo("Votre clef a ouvert la porte")
+				showInfo("INFO_DOOR_UNLOCKED")
 			else:
-				showInfo("Elle semble fermé à clef")
+				showInfo("INFO_DOOR_LOCKED")
 		else:
 			openDoor()
 			

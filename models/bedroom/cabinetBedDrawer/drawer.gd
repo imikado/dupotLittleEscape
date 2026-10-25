@@ -1,4 +1,4 @@
-extends MeshInstance
+extends MeshInstance3D
 
 func open():
 	global_translate(Vector3(0,0,0.4))

@@ -1,4 +1,4 @@
-extends Viewport
+extends SubViewport
 
 
 # Declare member variables here. Examples:
@@ -11,4 +11,4 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	pass #size=$Panel.rect_size
+	pass #size=$Panel.size
