@@ -57,7 +57,7 @@
     <control>touch</control>
   </supports>
   <releases>
-    <release date="2026-10-25" version="1.0.1">
+    <release date="2026-10-29" version="1.0.1">
       <description>
         <ul>
           <li>First version for Linux (Flathub, Snap Store) and the web</li>

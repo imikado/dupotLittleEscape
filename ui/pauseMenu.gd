@@ -24,6 +24,10 @@ const RESUME_DELAY=0.1
 
 func _ready():
 	overlay.visible=false
+	#a browser tab cannot be closed by the game
+	if OS.has_feature("web"):
+		$overlay/window/content/quit.visible=false
+		$overlay/window/content/resume.focus_neighbor_top=$overlay/window/content/mainMenu.get_path()
 	refreshFullscreenButton()
 
 func _process(_delta):

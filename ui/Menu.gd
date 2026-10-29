@@ -10,6 +10,8 @@ extends Node2D
 const LANGUAGE_NAMES={"fr":"Français","en":"English"}
 
 func _ready():
+	$version.text="v"+str(ProjectSettings.get_setting("application/config/version"))
+
 	var languageButton=$languageBloc/language
 	for language in GlobalGame.LANGUAGES:
 		languageButton.add_item(LANGUAGE_NAMES[language])

@@ -144,6 +144,19 @@ offset_right = 155.619
 offset_bottom = 223.262
 text = "MENU_GAMEPAD_HEAD"
 
+[node name="version" type="Label" parent="."]
+offset_left = 812.0
+offset_top = 568.0
+offset_right = 1012.0
+offset_bottom = 592.0
+auto_translate_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
 

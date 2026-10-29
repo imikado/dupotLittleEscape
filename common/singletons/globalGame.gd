@@ -50,6 +50,12 @@ func isFullscreen():
 func toggleFullscreen():
 	if isFullscreen():
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		#started in fullscreen: the window keeps the screen size, back to the default size
+		if !OS.has_feature("web"):
+			var size=Vector2i(ProjectSettings.get_setting("display/window/size/viewport_width"),ProjectSettings.get_setting("display/window/size/viewport_height"))
+			DisplayServer.window_set_size(size)
+			var screen=DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen())
+			DisplayServer.window_set_position(screen.position+(screen.size-size)/2)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
