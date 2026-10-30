@@ -36,6 +36,7 @@ func loadCameraPosition(position_):
 	global_transform.basis=position_
 
 func _physics_process(delta):
+	updateNearObject()
 	updateTilt(delta)
 
 	var dir = Vector3()
@@ -93,6 +94,7 @@ func pushButtonA():
 			if nearObject.has_method("canRetrieveItem") && nearObject.canRetrieveItem():
 				var item=nearObject.getItem()
 				GlobalPlayer.addItem(item)
+				GlobalAudio.play("pickup",false)
 				return
 
 			nearObject.action()
@@ -100,23 +102,39 @@ func pushButtonA():
 func pushButtonB():
 	emit_signal("gotoInventory")
 
+#several objects in reach (chessboard and remote control on the coffee table...): the one closest
+#to the center of the contact zone, so the player can choose by moving or turning
+func updateNearObject():
+	var center=$XROrigin3D/contact/CollisionShape3D.global_position
+	var nearest=null
+	var nearestDistance=INF
+	for body in $XROrigin3D/contact.get_overlapping_bodies():
+		if !body.has_method('displayInfo'):
+			continue
+		var position=getObjectCenter(body)
+		var distance=Vector2(position.x-center.x,position.z-center.z).length()
+		if distance<nearestDistance:
+			nearest=body
+			nearestDistance=distance
+
+	if nearest==nearObject:
+		return
+	if is_instance_valid(nearObject) and nearObject.has_method('hideInfo'):
+		nearObject.hideInfo()
+	nearObject=nearest
+	if nearObject:
+		nearObject.displayInfo()
+
+func getObjectCenter(object_):
+	var shape=object_.get_node_or_null("CollisionShape3D")
+	return shape.global_position if shape else object_.global_position
+
 func _on_contact_body_entered(body):
-	if body.has_method('displayInfo'):
-		body.displayInfo()
-
-		nearObject=body
-
 	if isLowObject(body):
 		setTiltObject(body)
 
 
 func _on_contact_body_exited(body):
-	if body.has_method('hideInfo'):
-		body.hideInfo()
-
-		if body==nearObject:
-			nearObject=null
-
 	if body==tiltObject:
 		setTiltObject(null)
 
@@ -124,9 +142,6 @@ func _on_contact_body_exited(body):
 	for other in $XROrigin3D/contact.get_overlapping_bodies():
 		if other==body:
 			continue
-		if nearObject==null and other.has_method('displayInfo'):
-			other.displayInfo()
-			nearObject=other
 		if tiltObject==null and isLowObject(other):
 			setTiltObject(other)
 
@@ -218,12 +233,6 @@ func pocessInput():
 		useTouch=false
 	if Input.is_action_pressed("ui_up"):
 		up=true
-		useTouch=false
-	if Input.is_action_pressed("ui_page_up"):
-		pageUp=true
-		useTouch=false
-	if Input.is_action_pressed("ui_page_down"):
-		pageDown=true
 		useTouch=false
 		
 

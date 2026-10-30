@@ -1,165 +1,163 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://ui/Menu.gd" id="1"]
-[ext_resource type="FontFile" path="res://Ubuntu-B.ttf" id="2"]
-[ext_resource type="Texture2D" path="res://ui/menu/background.png" id="3"]
-[ext_resource type="Texture2D" path="res://ressources/gamepad.png" id="4"]
+[ext_resource type="Texture2D" path="res://ui/menu/background.png" id="2"]
+[ext_resource type="Theme" path="res://ui/cartoon_theme.tres" id="4"]
+[ext_resource type="PackedScene" path="res://ui/keySettings.tscn" id="5"]
 
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("2")])
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-
-[sub_resource type="StyleBoxFlat" id="2"]
-bg_color = Color(0.117647, 0.333333, 0.376471, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="3"]
-Button/colors/font_color = Color(0.88, 0.88, 0.88, 1)
-Button/colors/font_color_disabled = Color(0.9, 0.9, 0.9, 0.2)
-Button/colors/font_color_hover = Color(0.94, 0.94, 0.94, 1)
-Button/colors/font_color_pressed = Color(1, 1, 1, 1)
-Button/constants/h_separation = 2
-Button/fonts/font = SubResource("1")
-Button/font_sizes/font_size = 16
-Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = SubResource("2")
-Button/styles/normal = SubResource("2")
-Button/styles/pressed = SubResource("2")
-
-[node name="menu" type="Node2D"]
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4")
 script = ExtResource("1")
 
-[node name="background" type="Sprite2D" parent="."]
-position = Vector2(512, 300)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3")
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 292.0
-offset_top = 180.0
-offset_right = 659.0
-offset_bottom = 490.0
-color = Color(0.0862745, 0.266667, 0.52549, 0.403922)
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.3, 0.2, 0.5, 0.15)
 
-[node name="play" type="Button" parent="."]
-offset_left = 343.389
-offset_top = 239.789
-offset_right = 602.389
-offset_bottom = 336.789
-theme = SubResource("3")
-text = "MENU_PLAY"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="title" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+auto_translate_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 64
+text = "Little Escape"
+horizontal_alignment = 1
 
-[node name="gamepadEnabled" type="CheckButton" parent="."]
-offset_left = 378.375
-offset_top = 358.176
-offset_right = 579.375
-offset_bottom = 427.176
-text = "MENU_TOUCH"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.22
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="languageBloc" type="HBoxContainer" parent="."]
-offset_left = 343.0
-offset_top = 435.0
-offset_right = 602.0
-offset_bottom = 471.0
+[node name="windows" type="HBoxContainer" parent="center"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 32
 alignment = 1
-theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="languageBloc"]
+[node name="window" type="PanelContainer" parent="center/windows"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="content" type="VBoxContainer" parent="center/windows/window"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="play" type="Button" parent="center/windows/window/content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "MENU_PLAY"
+
+[node name="settings" type="Button" parent="center/windows/window/content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "MENU_SETTINGS"
+
+[node name="gamepadEnabled" type="CheckButton" parent="center/windows/window/content"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MENU_TOUCH"
+
+[node name="languageBloc" type="HBoxContainer" parent="center/windows/window/content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Label" type="Label" parent="center/windows/window/content/languageBloc"]
 layout_mode = 2
 text = "MENU_LANGUAGE"
 
-[node name="language" type="OptionButton" parent="languageBloc"]
+[node name="language" type="OptionButton" parent="center/windows/window/content/languageBloc"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="blocGamepad" type="ColorRect" parent="."]
-offset_left = 689.271
-offset_top = 121.158
-offset_right = 1010.27
-offset_bottom = 431.158
-color = Color(0.0862745, 0.52549, 0.411765, 0.403922)
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="blocKeyboard" type="PanelContainer" parent="center/windows"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
 
-[node name="gamepad" type="Sprite2D" parent="blocGamepad"]
-position = Vector2(169.446, 91.864)
-scale = Vector2(0.229364, 0.236141)
-texture = ExtResource("4")
+[node name="content" type="VBoxContainer" parent="center/windows/blocKeyboard"]
+layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="blocGamepad"]
-offset_left = 51.6189
-offset_top = 185.262
-offset_right = 155.619
-offset_bottom = 199.262
-text = "MENU_GAMEPAD_MOVE"
+[node name="title" type="Label" parent="center/windows/blocKeyboard/content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_KEYBOARD"
+horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="blocGamepad"]
-offset_left = 51.6189
-offset_top = 257.262
-offset_right = 155.619
-offset_bottom = 271.262
-text = "MENU_GAMEPAD_ACTION"
-
-[node name="Label4" type="Label" parent="blocGamepad"]
-offset_left = 51.6189
-offset_top = 275.262
-offset_right = 180.619
-offset_bottom = 289.262
-text = "MENU_GAMEPAD_BACK"
-
-[node name="Label2" type="Label" parent="blocGamepad"]
-offset_left = 51.6189
-offset_top = 209.262
-offset_right = 155.619
-offset_bottom = 223.262
-text = "MENU_GAMEPAD_HEAD"
+[node name="keys" type="GridContainer" parent="center/windows/blocKeyboard/content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 4
+columns = 2
 
 [node name="version" type="Label" parent="."]
-offset_left = 812.0
-offset_top = 568.0
-offset_right = 1012.0
-offset_bottom = 592.0
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
 auto_translate_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 0.8)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("2")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.45, 0.26, 0.62, 1)
+theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
+
+[node name="keySettings" parent="." instance=ExtResource("5")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
 
-[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
-[connection signal="toggled" from="gamepadEnabled" to="." method="_on_gamepadEnabled_toggled"]
-[connection signal="item_selected" from="languageBloc/language" to="." method="_on_language_item_selected"]
+[connection signal="pressed" from="center/windows/window/content/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="center/windows/window/content/settings" to="." method="_on_settings_pressed"]
+[connection signal="closed" from="keySettings" to="." method="_on_key_settings_closed"]
+[connection signal="toggled" from="center/windows/window/content/gamepadEnabled" to="." method="_on_gamepadEnabled_toggled"]
+[connection signal="item_selected" from="center/windows/window/content/languageBloc/language" to="." method="_on_language_item_selected"]

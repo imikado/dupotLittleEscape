@@ -38,7 +38,8 @@ func _process(_delta):
 	$hud/box/buttons/back.visible=isZoom
 	$hud/box/hint.visible=isZoom
 	if isZoom:
-		$hud/box/hint.text=ZOOM_HINTS[scenePath]
+		$hud/box/hint.text=GlobalInput.formatText(ZOOM_HINTS[scenePath])
+		$hud/box/buttons/back.text=GlobalInput.formatText("ZOOM_BACK")
 
 func isOpen():
 	return overlay.visible
@@ -53,6 +54,9 @@ func open():
 		return
 	$overlay/window/content/mainMenu.visible=!NO_MAIN_MENU_SCENES.has(scenePath)
 	refreshFullscreenButton()
+	refreshSoundButton()
+	$overlay/window/content/controls.text=GlobalInput.formatText("PAUSE_CONTROLS")
+	GlobalAudio.play("pop")
 	overlay.visible=true
 	get_tree().paused=true
 	$overlay/window/content/resume.grab_focus.call_deferred()
@@ -65,6 +69,9 @@ func close():
 
 func refreshFullscreenButton():
 	$overlay/window/content/fullscreen.text="PAUSE_FULLSCREEN_ON" if GlobalGame.isFullscreen() else "PAUSE_FULLSCREEN_OFF"
+
+func refreshSoundButton():
+	$overlay/window/content/sound.text="PAUSE_SOUND_ON" if GlobalAudio.isEnabled() else "PAUSE_SOUND_OFF"
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed and !event.echo:
@@ -85,10 +92,14 @@ func _on_fullscreen_pressed():
 	GlobalGame.toggleFullscreen()
 	refreshFullscreenButton()
 
+func _on_sound_pressed():
+	GlobalAudio.toggle()
+	refreshSoundButton()
+
 func _on_main_menu_pressed():
 	overlay.visible=false
 	get_tree().paused=false
-	get_tree().change_scene_to_file("res://ui/Menu.tscn")
+	SceneTransition.changeScene("res://ui/Menu.tscn")
 
 func _on_quit_pressed():
 	get_tree().quit()
@@ -101,4 +112,4 @@ func _on_back_pressed():
 	if scene and scene.has_method("pushButtonB"):
 		scene.pushButtonB()
 	else:
-		get_tree().change_scene_to_file("res://flat.tscn")
+		SceneTransition.changeScene("res://flat.tscn")

@@ -48,18 +48,20 @@ func showInfo(text_):
 	$toilet/secretBoxWithCode.showInfo(text_)
 	
 func pushButtonB():
-	get_tree().change_scene_to_file("res://flat.tscn")
+	SceneTransition.changeScene("res://flat.tscn")
 	
 func pushButtonA():
 	if !$toilet/secretBoxWithCode.isLocked():
-		get_tree().change_scene_to_file("res://flat.tscn")
+		SceneTransition.changeScene("res://flat.tscn")
 		return
 		
 	if $toilet/secretBoxWithCode.isCodeCorrect():
+		GlobalAudio.play("code_ok",false)
 		showInfo("INFO_CODE_OK")
 		$toilet/secretBoxWithCode.unlock()
 
 	else:
+		GlobalAudio.play("code_wrong",false)
 		showInfo("INFO_CODE_WRONG")
 
 

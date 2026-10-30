@@ -13,14 +13,23 @@ var codeList=[0,0,0,0]
 
 signal correctCode
 
-func open():
-	$bloc.translate(Vector3(0,1,0))
+const OPEN_DURATION=0.4
+
+func open(animated_=true):
+	var bloc=$bloc
+	var target=bloc.position+bloc.basis*Vector3(0,1,0)
+	if !animated_:
+		bloc.position=target
+		return
+	var tween=create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	tween.tween_property(bloc,"position",target,OPEN_DURATION).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func goDown():
 	currentLine+=1
 	if currentLine > maxLine:
 		currentLine=minLine
 	
+	GlobalAudio.play("tick")
 	resetThenSelectLine(currentLine)
 
 func goUp():
@@ -28,6 +37,7 @@ func goUp():
 	if currentLine < minLine:
 		currentLine=maxLine
 	
+	GlobalAudio.play("tick")
 	resetThenSelectLine(currentLine)
 
 func goLeft():
@@ -35,6 +45,7 @@ func goLeft():
 	code-=1
 	if code < minNumber:
 		code=maxNumber
+	GlobalAudio.play("tick")
 	updateCurrentCode(code)
 
 func goRight():
@@ -42,6 +53,7 @@ func goRight():
 	code+=1
 	if code > maxNumber:
 		code=minNumber
+	GlobalAudio.play("tick")
 	updateCurrentCode(code)
 
 func getCurrentCode():

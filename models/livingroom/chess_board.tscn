@@ -11,7 +11,7 @@
 [ext_resource type="Material" path="res://materials/red_cloth.tres" id="9"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(2, 2, 2)
+size = Vector3(17.7, 2, 17.7)
 
 [sub_resource type="ArrayMesh" id="2"]
 _surfaces = [{
@@ -56,7 +56,6 @@ _surfaces = [{
 script = ExtResource("8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(12.6685, 0, -2.19126, 0, 1, 0, 2.14295, 0, 12.9542, -3.678, 0, 0.523972)
 shape = SubResource("1")
 
 [node name="chess_board" type="MeshInstance3D" parent="."]

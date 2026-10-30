@@ -1,24 +1,7 @@
-extends MeshInstance3D
+extends "res://common/abstracts/openable.gd"
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func open():
-	rotate(Vector3(0,0,1),55)
-	pass
-	
-func close():
-	rotate(Vector3(0,0,1),-55)
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _init():
+	openAxis=Vector3(0,0,1)
+	openAngle=-90
+	openSound="box_open"
+	closeSound="box_close"

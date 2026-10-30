@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/keySettings.gd" id="1"]
+[ext_resource type="Theme" path="res://ui/cartoon_theme.tres" id="2"]
+
+[node name="keySettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+
+[node name="dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.24, 0.14, 0.4, 0.55)
+
+[node name="center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="window" type="PanelContainer" parent="center"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+
+[node name="content" type="VBoxContainer" parent="center/window"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="title" type="Label" parent="center/window/content"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 40
+text = "SETTINGS_TITLE"
+horizontal_alignment = 1
+
+[node name="subtitle" type="Label" parent="center/window/content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "SETTINGS_KEYS"
+horizontal_alignment = 1
+
+[node name="hint" type="Label" parent="center/window/content"]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "SETTINGS_KEYS_HINT"
+horizontal_alignment = 1
+
+[node name="keys" type="GridContainer" parent="center/window/content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 6
+columns = 4
+
+[node name="buttons" type="HBoxContainer" parent="center/window/content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="reset" type="Button" parent="center/window/content/buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "SETTINGS_RESET"
+
+[node name="back" type="Button" parent="center/window/content/buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "SETTINGS_BACK"
+
+[connection signal="pressed" from="center/window/content/buttons/reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="center/window/content/buttons/back" to="." method="_on_back_pressed"]

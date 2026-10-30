@@ -1,8 +1,6 @@
-extends MeshInstance3D
+extends "res://common/abstracts/openable.gd"
 
-func open():
-	global_translate(Vector3(0,0,0.4))
-	
-func close():
-	global_translate(Vector3(0,0,-0.4))
-	
+func _init():
+	openOffset=Vector3(0,0,0.4)
+	openSound="drawer_open"
+	closeSound="drawer_close"

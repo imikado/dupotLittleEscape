@@ -7,7 +7,7 @@ func _ready():
 	
 func refreshState():
 	if props.state==OPENED:
-		openDrawer()
+		openDrawer(false)
 		
 func refreshItem():
 	$drawer/paper.visible=false
@@ -18,8 +18,8 @@ func refreshItem():
 	if props.item==GlobalItems.ID.POSTIT:	
 		$drawer/postit.visible=true
 		
-func openDrawer():
-	$drawer.open()
+func openDrawer(animated_=true):
+	$drawer.open(animated_)
 
 func closeDrawer():
 	$drawer.close()
@@ -28,8 +28,10 @@ func displayInfo():
 	if props.state==CLOSED:
 		showInfo("INFO_OPEN_IT")
 	else:
-		if props.item==GlobalItems.ID.BEDROOM_KEY:
+		if props.item==GlobalItems.ID.POSTIT:
 			showInfo("INFO_TAKE_POSTIT")
+		elif props.item==GlobalItems.ID.PAPER:
+			showInfo("INFO_TAKE_PAPER")
 		else:
 			showInfo("INFO_CLOSE_IT")
 

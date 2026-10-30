@@ -9,10 +9,11 @@ func _ready():
 	
 func refreshState():
 	if props.state==OPENED:
-		openDoor()
+		$door.openDirection=props.get("direction",1.0)
+		openDoor(false)
 	
-func openDoor():
-	$door.open()
+func openDoor(animated_=true):
+	$door.open(animated_)
 
 func closeDoor():
 	$door.close()
@@ -34,10 +35,16 @@ func action():
 				props.locked=false
 				saveProps()
 				
+				GlobalAudio.play("unlock")
+				GlobalPlayer.useItem(props.key)
 				showInfo("INFO_DOOR_UNLOCKED")
 			else:
+				GlobalAudio.play("locked")
 				showInfo("INFO_DOOR_LOCKED")
 		else:
+			#pushed: the door opens away from the player
+			props.direction=$door.getAwayDirection(get_viewport().get_camera_3d().global_position)
+			$door.openDirection=props.direction
 			openDoor()
 			
 			props.state=OPENED

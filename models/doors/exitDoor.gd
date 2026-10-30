@@ -9,10 +9,10 @@ func _ready():
 	
 func refreshState():
 	if props.state==OPENED:
-		openDoor()
+		openDoor(false)
 	
-func openDoor():
-	$door.open()
+func openDoor(animated_=true):
+	$door.open(animated_)
 
 func closeDoor():
 	$door.close()
@@ -34,8 +34,11 @@ func action():
 				props.locked=false
 				saveProps()
 				
+				GlobalAudio.play("unlock")
+				GlobalPlayer.useItem(props.key)
 				showInfo("INFO_DOOR_UNLOCKED")
 			else:
+				GlobalAudio.play("locked")
 				showInfo("INFO_DOOR_LOCKED")
 		else:
 			openDoor()

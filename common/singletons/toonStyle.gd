@@ -12,6 +12,8 @@ const OUTLINE_SHADER_COMPATIBILITY_PATH="res://materials/toon/outline_compatibil
 
 const DEFAULT_COLOR=Color(0.8,0.8,0.8)
 const OUTLINE_NODE="toonOutline"
+#camera metadata: {outline shader parameter: value}, e.g. a later fade out for a camera far from the scene
+const OUTLINE_PARAMS_META="outline_params"
 
 #cartoon palette: original material path -> new color (materials not listed keep their color)
 #remove an entry to get the original color back
@@ -182,6 +184,11 @@ func addOutline(camera_):
 	outline.name=OUTLINE_NODE
 	outline.mesh=quad
 	outline.material_override=outlineMaterial
+	if camera_.has_meta(OUTLINE_PARAMS_META):
+		var params=camera_.get_meta(OUTLINE_PARAMS_META)
+		outline.material_override=outlineMaterial.duplicate()
+		for param in params:
+			outline.material_override.set_shader_parameter(param,params[param])
 	#always drawn: the vertex shader covers the whole screen
 	outline.extra_cull_margin=16384
 	outline.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

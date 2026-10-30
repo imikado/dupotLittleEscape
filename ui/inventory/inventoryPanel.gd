@@ -14,8 +14,27 @@ var selectedSlot=null
 #Escape closes the panel and the player also reads it in the same frame
 var closedFrame=-1
 
+#the button bounces when a found item arrives in the inventory
+const BOUNCE_SCALE=1.3
+const BOUNCE_DURATION=0.5
+
 func _ready():
 	overlay.visible=false
+	ItemFound.stored.connect(bounceButton)
+	refreshTexts()
+	GlobalInput.keysChanged.connect(refreshTexts)
+
+#texts with the keyboard keys
+func refreshTexts():
+	$openButton.text=GlobalInput.formatText("INVENTORY_BUTTON")
+	$overlay/window/content/detail/hint.text=GlobalInput.formatText("INVENTORY_VIEW_HINT")
+
+func bounceButton():
+	var button=$openButton
+	button.pivot_offset=button.size/2
+	button.scale=Vector2.ONE*BOUNCE_SCALE
+	var tween=create_tween()
+	tween.tween_property(button,"scale",Vector2.ONE,BOUNCE_DURATION).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 
 #hidden while the inventory or the pause menu is open
 func _process(_delta):
@@ -33,6 +52,9 @@ func toggle():
 func open():
 	if Engine.get_process_frames()==closedFrame:
 		return
+	GlobalAudio.play("pop")
+	#the language may have changed since
+	refreshTexts()
 	refreshGrid()
 	showGrid()
 	overlay.visible=true
@@ -99,7 +121,7 @@ func showDetail(id_,slot_):
 	$overlay/window/content/detail/back.grab_focus.call_deferred()
 
 func _unhandled_input(event):
-	if event is InputEventKey and event.pressed and !event.echo and event.keycode==KEY_I:
+	if event.is_action_pressed("inventory") and !event.is_echo():
 		toggle()
 		get_viewport().set_input_as_handled()
 		return

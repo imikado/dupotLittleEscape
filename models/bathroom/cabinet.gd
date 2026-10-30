@@ -10,10 +10,12 @@ func _ready():
 	
 func refreshState():
 	if props.state==OPENED:
-		openTap()
+		openTap(false)
 		
 		
-func openTap():
+func openTap(animated_=true):
+	if animated_:
+		GlobalAudio.play("water")
 	emit_signal("openHotWater")
 	
 func closeTap():

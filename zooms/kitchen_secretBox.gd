@@ -46,18 +46,20 @@ func _physics_process(delta):
 
 func pushButtonA():
 	if !secretBox.isLocked():
-		get_tree().change_scene_to_file("res://flat.tscn")
+		SceneTransition.changeScene("res://flat.tscn")
 		return
 	
 	if secretBox.isCodeCorrect():
+		GlobalAudio.play("code_ok",false)
 		showInfo("INFO_CODE_OK")
 		secretBox.unlock()
 
 	else:
+		GlobalAudio.play("code_wrong",false)
 		showInfo("INFO_CODE_WRONG")
 
 func pushButtonB():
-	get_tree().change_scene_to_file("res://flat.tscn")
+	SceneTransition.changeScene("res://flat.tscn")
 
 func showInfo(text_):
 	secretBox.showInfo(text_)

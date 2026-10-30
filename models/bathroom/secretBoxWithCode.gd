@@ -38,6 +38,7 @@ func goDown():
 	if currentLine > maxLine:
 		currentLine=minLine
 	
+	GlobalAudio.play("tick")
 	resetThenSelectLine(currentLine)
 
 func goUp():
@@ -45,6 +46,7 @@ func goUp():
 	if currentLine < minLine:
 		currentLine=maxLine
 	
+	GlobalAudio.play("tick")
 	resetThenSelectLine(currentLine)
 
 func goLeft():
@@ -52,6 +54,7 @@ func goLeft():
 	code-=1
 	if code < minNumber:
 		code=maxNumber
+	GlobalAudio.play("tick")
 	updateCurrentCode(code)
 
 func goRight():
@@ -59,6 +62,7 @@ func goRight():
 	code+=1
 	if code > maxNumber:
 		code=minNumber
+	GlobalAudio.play("tick")
 	updateCurrentCode(code)
 
 func getCurrentCode():
@@ -98,7 +102,7 @@ func setLine(number_,text_):
 	
 func refreshState():
 	if props.state==OPENED:
-		openCover()
+		openCover(false)
 		
 	if !props.locked:
 		for i in range(0,4):
@@ -114,8 +118,8 @@ func refreshItem():
 	if props.item==GlobalItems.ID.EXIT_KEY:
 		$base/exit_key.visible=true
 		
-func openCover():
-	$cover.open()
+func openCover(animated_=true):
+	$cover.open(animated_)
 
 func closeCover():
 	$cover.close()
@@ -124,7 +128,7 @@ func displayInfo():
 	if props.state==CLOSED:
 		showInfo("INFO_OPEN_IT")
 	else:
-		if props.item==GlobalItems.ID.KITCHEN_KEY:
+		if props.item!=null:
 			showInfo("INFO_TAKE_KEY")
 		else:
 			showInfo("INFO_CLOSE_IT")

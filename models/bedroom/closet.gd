@@ -30,6 +30,7 @@ func isSecretCode():
 func unlock():
 	props.locked=false
 	$doorLeft/padlock.open()
+	GlobalAudio.play("unlock")
 	saveProps()
 	
 func isLocked():
@@ -38,9 +39,9 @@ func isLocked():
 	
 func refreshState():
 	if props.state==OPENED:
-		openDoors()
+		openDoors(false)
 	if props.locked==false:
-		$doorLeft/padlock.open()
+		$doorLeft/padlock.open(false)
 		
 func refreshItem():
 	$bedroom_key.visible=false
@@ -48,9 +49,9 @@ func refreshItem():
 	if props.item==GlobalItems.ID.BEDROOM_KEY:
 		$bedroom_key.visible=true
 		
-func openDoors():
-	$doorLeft.open()
-	$doorRight.open()
+func openDoors(animated_=true):
+	$doorLeft.open(animated_)
+	$doorRight.open(animated_)
 
 func closeDoors():
 	$doorLeft.close()

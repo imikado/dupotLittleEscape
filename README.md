@@ -101,7 +101,9 @@ Helper scripts (set `GODOT` if Godot isn't in your `PATH`):
 | `./export_flathub.sh` | Exports the `.pck` and builds `export/Linux/bundle.tar.gz` (the GitHub release asset used by the Flathub manifest), and prints its sha256 |
 | `./build_snap.sh [--install]` | Exports the game and packs the `.snap` in `export/Linux/snap/` (needs `snapcraft`) |
 | `tools/capture/capture.sh` | Records a guided tour of the flat and regenerates the screenshots and the promo GIF (needs `ffmpeg`, takes about 7 minutes) |
+| `tools/capture/video.sh` | Records the guided tour in 1920x1080 and edits the YouTube promo video `export/promo/little_escape.mp4` (title, captions, end screen with links; `MUSIC=file.ogg` adds a soundtrack; needs `ffmpeg`, takes about 10 minutes) |
 | `tools/capture/screenshots.sh [shot...]` | Regenerates only the screenshots, with the same shots as `capture.sh` (a few seconds, no `ffmpeg`) |
+| `tools/capture/gif.sh` | Regenerates only the promo GIF `export/promo/little_escape.gif`, recording just the GIF shots (`GIF_SHOTS="..."` changes them; needs `ffmpeg`, takes about 3 minutes) |
 | `godot --headless --path . -s tools/icons/generate_icons.gd` | Regenerates the PNG icons from `tools/icons/icon.svg` |
 
 ### Releasing a new version

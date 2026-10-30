@@ -51,6 +51,17 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hint"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0627451, 0.0784314, 0.105882, 0.75)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [sub_resource type="Theme" id="Theme_pause"]
 default_font = ExtResource("2")
 default_font_size = 20
@@ -109,11 +120,10 @@ text = "ZOOM_BACK"
 [node name="hint" type="Label" parent="hud/box"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.647059, 0.839216, 0.945098, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
-autowrap_mode = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_hint")
 
 [node name="overlay" type="Control" parent="."]
 visible = false
@@ -168,6 +178,10 @@ text = "PAUSE_RESUME"
 layout_mode = 2
 text = "PAUSE_FULLSCREEN_ON"
 
+[node name="sound" type="Button" parent="overlay/window/content"]
+layout_mode = 2
+text = "PAUSE_SOUND_ON"
+
 [node name="mainMenu" type="Button" parent="overlay/window/content"]
 layout_mode = 2
 text = "PAUSE_MAIN_MENU"
@@ -190,5 +204,6 @@ text = "PAUSE_CONTROLS"
 [connection signal="pressed" from="overlay/window/content/mainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="overlay/window/content/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="overlay/window/content/fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="pressed" from="overlay/window/content/sound" to="." method="_on_sound_pressed"]
 [connection signal="pressed" from="hud/box/buttons/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="hud/box/buttons/back" to="." method="_on_back_pressed"]

@@ -7,7 +7,7 @@ func _ready():
 	
 func refreshState():
 	if props.state==OPENED:
-		openCover()
+		openCover(false)
 		
 func refreshItem():
 	$base/key.visible=false
@@ -15,8 +15,8 @@ func refreshItem():
 	if props.item==GlobalItems.ID.BATHROOM_KEY:
 		$base/key.visible=true
 		
-func openCover():
-	$cover.open()
+func openCover(animated_=true):
+	$cover.open(animated_)
 
 func closeCover():
 	$cover.close()

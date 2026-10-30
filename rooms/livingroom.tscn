@@ -31,10 +31,10 @@ transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 7.8164
 transform = Transform3D(-3, 0, 2.62268e-07, 0, 3, 0, -2.62268e-07, 0, -3, 9.69596, 0, 5.49228)
 
 [node name="chess_board" parent="tableCoffee" instance=ExtResource("8")]
-transform = Transform3D(0.0145696, 0, 0.00231724, 0, 0.00752956, 0, -0.00231724, 0, 0.0145696, -0.258579, 0.236698, 0.124908)
+transform = Transform3D(0.0145696, 0, 0.00231724, 0, 0.00752956, 0, -0.00231724, 0, 0.0145696, -0.288, 0.236698, 0.1007)
 
 [node name="remoteControl" parent="tableCoffee" instance=ExtResource("9")]
-transform = Transform3D(0.0187192, 0, 0.0175675, 0, 0.0288493, 0, -0.0175675, 0, 0.0187192, 0.0521905, 0.242768, 0.149338)
+transform = Transform3D(0.02528, 0, 0.004457, 0, 0.0288493, 0, -0.004457, 0, 0.02528, 0.0769, 0.242768, 0.068)
 
 [node name="tableCloth" parent="." instance=ExtResource("4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7546, 0, -1.14123)

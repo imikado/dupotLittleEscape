@@ -50,9 +50,3 @@ func _run():
 		root.get_texture().get_image().save_png(path)
 		print(path)
 	quit()
-
-func _find_shot(name_):
-	for shot in SHOTS:
-		if shot.name==name_:
-			return shot
-	return null

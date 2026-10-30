@@ -57,6 +57,17 @@
     <control>touch</control>
   </supports>
   <releases>
+
+    <release date="2026-10-30" version="1.1.0">
+      <description>
+        <ul>
+          <li>Improve animation</li>
+          <li>Bugfixes and improvments</li>
+          <li>Improve cartoon rendering</li>
+        </ul>
+      </description>
+    </release>
+
     <release date="2026-10-29" version="1.0.1">
       <description>
         <ul>

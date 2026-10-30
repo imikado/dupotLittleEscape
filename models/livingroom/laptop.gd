@@ -30,6 +30,7 @@ func displayInfo():
 
 
 func action():
+	GlobalAudio.play("switch")
 	if props.state==CLOSED:
 		switchOnScreen()
 		

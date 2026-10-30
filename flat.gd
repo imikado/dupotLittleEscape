@@ -35,7 +35,7 @@ func _on_Player_gotoInventory():
 
 func _on_bedroom_gotoClosetZoom():
 	savePlayerPosition()
-	get_tree().change_scene_to_file("res://zooms/bedroom_closet.tscn")
+	SceneTransition.changeScene("res://zooms/bedroom_closet.tscn")
 
 func savePlayerPosition():
 	GlobalPlayer.savePosition($Player.global_transform.origin)
@@ -44,27 +44,30 @@ func savePlayerPosition():
 
 func _on_livingroom_gotoChessBoardZoom():
 	savePlayerPosition()
-	get_tree().change_scene_to_file("res://zooms/livingroom_chessBoard.tscn")
+	SceneTransition.changeScene("res://zooms/livingroom_chessBoard.tscn")
 
 
 func _on_livingroom_gotoRemoteControlZoom():
 	savePlayerPosition()
-	get_tree().change_scene_to_file("res://zooms/livingroom_remoteControl.tscn")
+	SceneTransition.changeScene("res://zooms/livingroom_remoteControl.tscn")
 	pass # Replace with function body.
 
 
 func _on_bathroom_gotoBathroomSecretBoxZoom():
 	savePlayerPosition()
-	get_tree().change_scene_to_file("res://zooms/bathroom_secretBox.tscn")
+	SceneTransition.changeScene("res://zooms/bathroom_secretBox.tscn")
 	pass # Replace with function body.
 
 
 func _on_kitchen_gotoKitchenSecretBoxZoom():
 	savePlayerPosition()
-	get_tree().change_scene_to_file("res://zooms/kitchen_secretBox.tscn")
+	SceneTransition.changeScene("res://zooms/kitchen_secretBox.tscn")
 	pass # Replace with function body.
 
 
+#time to see the exit door open before the end screen
+const EXIT_DELAY=0.7
+
 func _on_exitDoor_exitDoorOpened():
-	get_tree().change_scene_to_file("res://ui/end.tscn")
+	SceneTransition.changeScene("res://ui/end.tscn",EXIT_DELAY)
 	pass # Replace with function body.

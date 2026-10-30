@@ -1,0 +1,83 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/itemFound.gd" id="1"]
+[ext_resource type="Theme" path="res://ui/cartoon_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://ui/inventory/itemViewer.tscn" id="3"]
+
+[sub_resource type="Gradient" id="Gradient_confetti"]
+offsets = PackedFloat32Array(0, 0.33, 0.66, 1)
+colors = PackedColorArray(1, 0.82, 0.26, 1, 0.38, 0.78, 0.86, 1, 0.96, 0.43, 0.4, 1, 0.62, 0.45, 0.9, 1)
+
+[sub_resource type="Gradient" id="Gradient_fade"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="itemFound" type="CanvasLayer"]
+process_mode = 3
+layer = 15
+visible = false
+script = ExtResource("1")
+
+[node name="center" type="CenterContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.78
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="window" type="PanelContainer" parent="center"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("2")
+
+[node name="content" type="VBoxContainer" parent="center/window"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="title" type="Label" parent="center/window/content"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 40
+text = "ITEM_FOUND"
+horizontal_alignment = 1
+
+[node name="itemViewer" parent="center/window/content" instance=ExtResource("3")]
+custom_minimum_size = Vector2(220, 170)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="name" type="Label" parent="center/window/content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+
+[node name="hint" type="Label" parent="center/window/content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "ITEM_FOUND_HINT"
+horizontal_alignment = 1
+modulate = Color(1, 1, 1, 0.7)
+
+[node name="confetti" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 1.2
+one_shot = true
+local_coords = true
+explosiveness = 0.95
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 420)
+initial_velocity_min = 180.0
+initial_velocity_max = 340.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+damping_min = 20.0
+damping_max = 40.0
+scale_amount_min = 6.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_fade")
+color_initial_ramp = SubResource("Gradient_confetti")

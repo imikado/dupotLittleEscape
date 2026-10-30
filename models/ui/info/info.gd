@@ -14,6 +14,7 @@ func setText(text_):
 	$CanvasLayer/Panel/VBox/Label.text=text_
 	#questions wait for the player to confirm with ui_accept
 	$CanvasLayer/Panel/VBox/Hint.visible=tr(text_).strip_edges().ends_with("?")
+	$CanvasLayer/Panel/VBox/Hint.text=GlobalInput.formatText("INFO_HINT_YES")
 
 func showInfo(text_):
 	#info disabled by its parent (ex: zoom scenes)

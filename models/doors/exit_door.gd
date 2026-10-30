@@ -1,7 +1,7 @@
-extends MeshInstance3D
+extends "res://common/abstracts/openable.gd"
 
-func open():
-	rotate(Vector3(0,1,0),-85)
-	
-func close():
-	rotate(Vector3(0,1,0),85)
+func _init():
+	openAngle=85
+	openSound="door_open"
+	closeSound="door_close"
+	solidWhenOpened=false

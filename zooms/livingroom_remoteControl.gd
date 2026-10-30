@@ -14,6 +14,17 @@ var numberList=[
 	["E",0,"A"]
 ]
 
+#center of the key "1" and distance between two keys
+const KEY_ORIGIN=Vector3(-0.724,0.62,-1.262)
+const KEY_STEP=0.7
+#the selection frame floats up and down a little
+const SELECTED_BOB=0.025
+const SELECTED_BOB_SPEED=5.0
+#more digits do not fit on the display
+const MAX_DIGITS=6
+
+var time=0.0
+
 var left=false
 var right=false
 var up=false
@@ -29,11 +40,14 @@ var useTouch=false
 
 func _ready():
 	GlobalGame.initCamera($XROrigin3D,Vector3(0,0.8,-0.7))
+	refreshScreen()
+
+func _process(delta):
+	time+=delta
+	$selected.position=KEY_ORIGIN+Vector3(selectedX*KEY_STEP,sin(time*SELECTED_BOB_SPEED)*SELECTED_BOB,selectedY*KEY_STEP)
 
 func _physics_process(delta):
 	var dir = Vector3()
-	
-	var movingCase=2.3
 	
 	var movingX=0
 	var movingY=0
@@ -64,31 +78,35 @@ func _physics_process(delta):
 	if 3 < selectedY+movingY or selectedY+movingY < 0:
 		return
 	
+	if movingX!=0 or movingY!=0:
+		GlobalAudio.play("tick")
+
 	if movingX!=0:
 		selectedX+=movingX
 		
 	if movingY!=0:
 		selectedY+=movingY
-	
-	if movingX!=0 or movingY!=0:
-		$selected.translate(   Vector3(movingX*movingCase, 0 ,movingY*movingCase ))
 
 
 func pushButtonA():
+	GlobalAudio.play("beep")
 	var touchPressed = str(numberList[selectedY][selectedX])
 	if touchPressed=="E":
 		screen=screen.substr(0, screen.length()-1  )	
 	elif touchPressed=="A":
 		GlobalRoom.saveStateForObject(room,"tv",{"channel":screen})
-		get_tree().change_scene_to_file("res://flat.tscn")
+		SceneTransition.changeScene("res://flat.tscn")
 		return
-	else:
+	elif screen.length()<MAX_DIGITS:
 		screen+=""+ touchPressed
 	
-	$SubViewport/Label.text=screen
+	refreshScreen()
+
+func refreshScreen():
+	$SubViewport/Label.text="CH "+(screen if screen!="" else "----")
 		
 func pushButtonB():
-	get_tree().change_scene_to_file("res://flat.tscn")
+	SceneTransition.changeScene("res://flat.tscn")
 		
 func resetKeys():
 	if useTouch:

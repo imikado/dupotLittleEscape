@@ -1,11 +1,12 @@
 keys,fr,en
-INFO_HINT_YES,[Entrée] Oui,[Enter] Yes
+INFO_HINT_YES,[{accept}] Oui,[{accept}] Yes
 INFO_OPEN_IT,Voulez-vous l'ouvrir ?,Do you want to open it?
 INFO_CLOSE_IT,Voulez-vous la fermer ?,Do you want to close it?
 INFO_DOOR_UNLOCKED,Votre clef a ouvert la porte,Your key unlocked the door
 INFO_DOOR_LOCKED,Elle semble fermée à clef,It seems to be locked
 INFO_TAKE_KEY,Voulez-vous prendre la clef ?,Do you want to take the key?
 INFO_TAKE_POSTIT,Voulez-vous prendre le post-it ?,Do you want to take the sticky note?
+INFO_TAKE_PAPER,Voulez-vous prendre la feuille ?,Do you want to take the sheet of paper?
 INFO_LAPTOP_ON,Voulez-vous allumer l'ordinateur ?,Do you want to turn on the computer?
 INFO_LAPTOP_OFF,Voulez-vous éteindre l'ordinateur ?,Do you want to turn off the computer?
 INFO_SEE_CHESS,Voulez-vous voir le jeu d'échecs ?,Do you want to look at the chessboard?
@@ -17,45 +18,42 @@ INFO_CODE_WRONG,Code incorrect,Wrong code
 MENU_PLAY,Jouer,Play
 MENU_LANGUAGE,Langue,Language
 MENU_TOUCH,Navigation tactile ?,Touch controls?
-MENU_GAMEPAD_MOVE,N : Déplacement,N: Move
-MENU_GAMEPAD_HEAD,"H : monter/descendre la tête
-(en l'absence d'un casque VR)","H: look up/down
-(without a VR headset)"
-MENU_GAMEPAD_ACTION,A : Action,A: Action
-MENU_GAMEPAD_BACK,B : Retour/Inventaire,B: Back/Inventory
 INVENTORY_EMPTY,Votre inventaire est vide :(,Your inventory is empty :(
-INVENTORY_BUTTON,Inventaire [I],Inventory [I]
+INVENTORY_BUTTON,Inventaire [{inventory}],Inventory [{inventory}]
 INVENTORY_TITLE,Inventaire,Inventory
 INVENTORY_CLOSE,Fermer [Échap],Close [Esc]
 INVENTORY_BACK,Retour [Échap],Back [Esc]
-INVENTORY_VIEW_HINT,"Glisser ou flèches : tourner · Molette ou Page↑/↓ : zoomer","Drag or arrows: rotate · Wheel or Page↑/↓: zoom"
+INVENTORY_VIEW_HINT,Glisser ou {up} {down} {left} {right} : tourner · Molette ou Page↑ / Page↓ : zoomer,Drag or {up} {down} {left} {right}: rotate · Wheel or Page↑ / Page↓: zoom
 ITEM_POSTIT,Post-it,Sticky note
 ITEM_PAPER,Feuille de papier,Sheet of paper
 ITEM_BEDROOM_KEY,Clef de la chambre,Bedroom key
 ITEM_BATHROOM_KEY,Clef de la salle de bain,Bathroom key
 ITEM_KITCHEN_KEY,Clef de la cuisine,Kitchen key
 ITEM_EXIT_KEY,Clef de la sortie,Exit key
+ITEM_FOUND,Trouvé !,Found it!
+ITEM_USED,Utilisée !,Used!
+ITEM_FOUND_HINT,Ajouté à l'inventaire [{inventory}],Added to the inventory [{inventory}]
 PAUSE_TITLE,Pause,Pause
 PAUSE_RESUME,Reprendre [Échap],Resume [Esc]
 PAUSE_MAIN_MENU,Menu principal,Main menu
 PAUSE_QUIT,Quitter le jeu,Quit game
-PAUSE_CONTROLS,"Flèches : se déplacer
-Page↑ / Page↓ : regarder en haut / en bas
-Entrée / Espace : action
-I / Retour arrière : inventaire (retour dans un zoom)
-F11 : plein écran","Arrows: move
-Page↑ / Page↓: look up / down
-Enter / Space: action
-I / Backspace: inventory (back in a close-up)
+PAUSE_CONTROLS,"{up} {down} {left} {right} : se déplacer
+{accept} : action
+{inventory} / {cancel} : inventaire (retour dans un zoom)
+F11 : plein écran","{up} {down} {left} {right}: move
+{accept}: action
+{inventory} / {cancel}: inventory (back in a close-up)
 F11: fullscreen"
 PAUSE_FULLSCREEN_ON,Plein écran : oui [F11],Fullscreen: on [F11]
 PAUSE_FULLSCREEN_OFF,Plein écran : non [F11],Fullscreen: off [F11]
+PAUSE_SOUND_ON,Son : oui,Sound: on
+PAUSE_SOUND_OFF,Son : non,Sound: off
 HUD_MENU,Menu [Échap],Menu [Esc]
-ZOOM_BACK,← Retour à la pièce [Retour arrière],← Back to the room [Backspace]
-ZOOM_HINT_CODE,"↑ ↓ : choisir la molette · ← → : changer le chiffre · Entrée : valider","↑ ↓: select a wheel · ← →: change the digit · Enter: confirm"
-ZOOM_HINT_REMOTE,"Flèches : choisir une touche · Entrée : appuyer (E : effacer, A : valider)","Arrows: select a key · Enter: press (E: erase, A: confirm)"
+ZOOM_BACK,← Retour à la pièce [{cancel}],← Back to the room [{cancel}]
+ZOOM_HINT_CODE,{up} {down} : choisir la molette · {left} {right} : changer le chiffre · {accept} : valider,{up} {down}: select a wheel · {left} {right}: change the digit · {accept}: confirm
+ZOOM_HINT_REMOTE,"{up} {down} {left} {right} : choisir une touche · {accept} : appuyer (E : effacer, A : valider)","{up} {down} {left} {right}: select a key · {accept}: press (E: erase, A: confirm)"
 TV_NO_SIGNAL,PAS DE SIGNAL,NO SIGNAL
-ZOOM_HINT_CHESS,← → : tourner l'échiquier,← →: rotate the chessboard
+ZOOM_HINT_CHESS,{left} {right} : tourner l'échiquier,{left} {right}: rotate the chessboard
 POSTIT_CLUE,"La clef
 est dans
 l'armoire","The key
@@ -63,3 +61,30 @@ is in the
 wardrobe"
 END_CONGRATS,Félicitations ;),Congratulations ;)
 END_BACK_MENU,Retour au menu,Back to menu
+END_ESCAPED,Vous avez réussi à vous échapper !,You managed to escape!
+MENU_SETTINGS,Paramètres,Settings
+MENU_KEYBOARD,Clavier,Keyboard
+SETTINGS_TITLE,Paramètres,Settings
+SETTINGS_KEYS,Touches du clavier,Keyboard keys
+SETTINGS_KEYS_HINT,Cliquez sur une touche puis appuyez sur la nouvelle touche ([Échap] : annuler),"Click a key, then press the new key ([Esc]: cancel)"
+SETTINGS_PRESS_KEY,Appuyez sur une touche…,Press a key…
+SETTINGS_RESERVED_KEY,Touche réservée,Reserved key
+SETTINGS_RESET,Touches par défaut,Default keys
+SETTINGS_BACK,Retour,Back
+KEYS_FORWARD,Avancer,Move forward
+KEYS_BACKWARD,Reculer,Move backward
+KEYS_LEFT,Tourner à gauche,Turn left
+KEYS_RIGHT,Tourner à droite,Turn right
+KEYS_ACTION,Action,Action
+KEYS_BACK,Retour,Back
+KEYS_INVENTORY,Inventaire,Inventory
+KEYS_PAUSE,Pause,Pause
+KEYS_FULLSCREEN,Plein écran,Fullscreen
+KEY_ENTER,Entrée,Enter
+KEY_SPACE,Espace,Space
+KEY_BACKSPACE,Retour arrière,Backspace
+KEY_TAB,Tab,Tab
+KEY_SHIFT,Maj,Shift
+KEY_CTRL,Ctrl,Ctrl
+KEY_DELETE,Suppr,Del
+KEY_ESCAPE,Échap,Esc

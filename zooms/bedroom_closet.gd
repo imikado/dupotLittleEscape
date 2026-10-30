@@ -45,17 +45,19 @@ func _physics_process(delta):
 		
 func pushButtonA():
 	if !$closet.isLocked():
-		get_tree().change_scene_to_file("res://flat.tscn")
+		SceneTransition.changeScene("res://flat.tscn")
 		return
 	
 	if $closet.isSecretCode():
+		GlobalAudio.play("code_ok",false)
 		showInfo("INFO_CODE_OK")
 		$closet.unlock()
 	else:
+		GlobalAudio.play("code_wrong",false)
 		showInfo("INFO_CODE_WRONG")
 
 func pushButtonB():
-	get_tree().change_scene_to_file("res://flat.tscn")
+	SceneTransition.changeScene("res://flat.tscn")
 
 func showInfo(text_):
 	$info.showInfo(text_)

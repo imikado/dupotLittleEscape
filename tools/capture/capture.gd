@@ -47,6 +47,9 @@ var _time:=0.0
 var _frame:=0
 var _shot:=-1
 var _shot_start:=0.0
+# plans de la visite : tous, ou ceux de CAPTURE_ONLY (noms séparés par des
+# espaces, dans l'ordre voulu)
+var _shots=SHOTS
 # capture.sh lit les plans (nom, première et dernière image) dans ce fichier
 var _shots_file=null
 
@@ -54,6 +57,16 @@ func _initialize():
 	var path=OS.get_environment("CAPTURE_SHOTS")
 	if path!="":
 		_shots_file=FileAccess.open(path,FileAccess.WRITE)
+	var names=OS.get_environment("CAPTURE_ONLY")
+	if names!="":
+		_shots=[]
+		for name in names.split(" ",false):
+			var shot=_find_shot(name)
+			if shot==null:
+				printerr("Plan inconnu : %s"%name)
+				quit(1)
+				return
+			_shots.append(shot)
 
 func _process(delta):
 	var index=_shot_at(_time)
@@ -66,7 +79,7 @@ func _process(delta):
 		quit()
 		return false
 
-	var shot=SHOTS[index]
+	var shot=_shots[index]
 	if index!=_shot:
 		_end_shot()
 		if _shot<0:
@@ -95,11 +108,17 @@ func _end_shot():
 
 func _shot_at(time_):
 	var end=0.0
-	for i in SHOTS.size():
-		end+=SHOTS[i].duration
+	for i in _shots.size():
+		end+=_shots[i].duration
 		if time_<end:
 			return i
 	return -1
+
+func _find_shot(name_):
+	for shot in SHOTS:
+		if shot.name==name_:
+			return shot
+	return null
 
 func _place_camera(shot_,t_):
 	var player=current_scene.get_node("Player")
