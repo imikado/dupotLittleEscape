@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 signal movePlayer(joystickVector_)
-signal moveHead(joystickVector_)
 
 signal pushButtonA
 signal pushButtonB
@@ -10,18 +9,11 @@ signal navLeft
 signal navRight
 signal navUp
 signal navDown
- 
-var joystick_speed = 0;
-var joystick_angle = 0;
-var joystick_vector = Vector2();
-
-var equipment=null
 
 var _isEnable=true
 
 @export var displayLeftNav: bool=false
 @export var displayLeftJoystick: bool=false
-@export var displayRightJoystick: bool=false
 
 @export var displayButtonA: bool=false
 @export var displayButtonB: bool=false
@@ -32,15 +24,11 @@ func _ready():
 	else:
 		disable()
 
-func disableHead():
-	$"joystick-big2".visible=false
-
 func enable():
 	_isEnable=true
 	$buttonA.visible=displayButtonA
 	$buttonB.visible=displayButtonB
 	$"joystick-big".visible=displayLeftJoystick
-	$"joystick-big2".visible=displayRightJoystick
 	$nav.visible=displayLeftNav
 
 func disable():
@@ -48,56 +36,18 @@ func disable():
 	$buttonA.visible=false
 	$buttonB.visible=false
 	$"joystick-big".visible=false
-	$"joystick-big2".visible=false
 	$nav.visible=false
-
-func _on_button_pushButton():
-	if _isEnable:
-		emit_signal("pushButton")
-
-func _on_button_releaseButton():
-	if _isEnable:
-		emit_signal("releaseButton")
 
 func _on_joystickbig_moveJoystick(joystickVector_):
 	if _isEnable:
 		emit_signal("movePlayer",joystickVector_)
 
-func enableButton():
-	$button.visible=true
-
-func setEquipment(item_):
-	var realItem=GlobalItems.getItem(item_)
-	$button/Sprite2D.texture=realItem.getTexture()
-	enableButton()
-	
-
-func _on_HUD_equipItem(item_):
-	setEquipment(item_)
-
-
 func _on_buttonB_pushButton():
 	emit_signal("pushButtonB")
-	pass # Replace with function body.
-
-
-func _on_buttonB_releaseButton():
-	pass # Replace with function body.
 
 
 func _on_buttonA_pushButton():
 	emit_signal("pushButtonA")
-	pass # Replace with function body.
-
-
-func _on_buttonA_releaseButton():
-	pass # Replace with function body.
-
-
-func _on_joystickbig2_moveJoystick(joystickVector_):
-	if _isEnable:
-		emit_signal("moveHead",joystickVector_)
-	pass # Replace with function body.
 
 
 func _on_down_pushButton():

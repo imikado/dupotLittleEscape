@@ -24,7 +24,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="Camera3D" type="Camera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 environment = ExtResource("1")
-fov = 80.0
+fov = 72.0
 
 [node name="contact" type="Area3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, -1.8, 0)

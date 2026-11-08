@@ -10,8 +10,12 @@ const TOON_SHADER=preload("res://materials/toon/toon.gdshader")
 const OUTLINE_SHADER_PATH="res://materials/toon/outline.gdshader"
 const OUTLINE_SHADER_COMPATIBILITY_PATH="res://materials/toon/outline_compatibility.gdshader"
 
+#object the player is looking at: drawn again with a glow (material_overlay)
+const HIGHLIGHT_SHADER=preload("res://materials/toon/highlight.gdshader")
+
 const DEFAULT_COLOR=Color(0.8,0.8,0.8)
 const OUTLINE_NODE="toonOutline"
+const CONVERTED_META="toon_converted"
 #camera metadata: {outline shader parameter: value}, e.g. a later fade out for a camera far from the scene
 const OUTLINE_PARAMS_META="outline_params"
 
@@ -67,6 +71,7 @@ const ZOOM_BACKGROUNDS={
 
 var enabled=true
 var outlineMaterial=null
+var highlightMaterial=null
 #original material -> converted material
 var cache={}
 
@@ -75,6 +80,10 @@ func _enter_tree():
 	outlineMaterial=ShaderMaterial.new()
 	var compatibility=RenderingServer.get_current_rendering_method()=="gl_compatibility"
 	outlineMaterial.shader=load(OUTLINE_SHADER_COMPATIBILITY_PATH if compatibility else OUTLINE_SHADER_PATH)
+	highlightMaterial=ShaderMaterial.new()
+	highlightMaterial.shader=HIGHLIGHT_SHADER
+	#transparent pass: drawn before the outlines, so the lines stay dark
+	highlightMaterial.render_priority=-1
 	get_tree().node_added.connect(_on_node_added)
 
 func _on_node_added(node_):
@@ -86,8 +95,10 @@ func _on_node_added(node_):
 		addOutline.call_deferred(node_)
 
 func applyToon(mesh_):
-	if mesh_.mesh==null or mesh_.has_meta("no_toon"):
+	if mesh_.mesh==null or mesh_.has_meta("no_toon") or mesh_.has_meta(CONVERTED_META):
 		return
+	#a scene kept in memory and added again (flat during a zoom) is not converted twice
+	mesh_.set_meta(CONVERTED_META,true)
 
 	if mesh_.material_override:
 		mesh_.material_override=convertMaterial(mesh_.material_override)
@@ -174,6 +185,35 @@ func createToon(color_,texture_):
 	if texture_:
 		material.set_shader_parameter("texture_albedo",texture_)
 	return material
+
+#glow on the meshes of an interactive object (furniture, door), not on the objects it holds that
+#are interactive themselves (e.g. a secret box in a drawer) nor on the texts (clues, displays)
+func setHighlighted(object_,highlighted_):
+	for mesh in getHighlightMeshes(object_,object_):
+		if highlighted_:
+			if mesh.material_overlay==null:
+				mesh.material_overlay=highlightMaterial
+		elif mesh.material_overlay==highlightMaterial:
+			mesh.material_overlay=null
+
+func getHighlightMeshes(node_,root_):
+	var meshes=[]
+	for child in node_.get_children():
+		if child.has_method("setTargeted") and child!=root_:
+			continue
+		if child is MeshInstance3D and child.name!=OUTLINE_NODE and !isTextMesh(child):
+			meshes.append(child)
+		meshes.append_array(getHighlightMeshes(child,root_))
+	return meshes
+
+func isTextMesh(mesh_):
+	if mesh_.mesh==null:
+		return true
+	for surface in mesh_.mesh.get_surface_count():
+		var material=mesh_.get_active_material(surface)
+		if material is StandardMaterial3D and material.albedo_texture is ViewportTexture:
+			return true
+	return false
 
 func addOutline(camera_):
 	if !is_instance_valid(camera_) or camera_.has_node(OUTLINE_NODE):

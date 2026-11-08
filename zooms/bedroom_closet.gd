@@ -1,47 +1,28 @@
-extends Node3D
+extends "res://zooms/zoom.gd"
 
 var room="bedroom"
 
-#keys
-var left=false
-var right=false
-var up=false
-var down=false
-var pageUp=false
-var pageDown=false
-var useTouch=false
-
 func _ready():
-	GlobalGame.initCamera($XROrigin3D,Vector3(0,0,-0.1))
 
 	$closet.init(room,"closet",GlobalItems.ID.BEDROOM_KEY)
 
 	$closet.zoom()
 	
 	$info.hideInfo()
-	
 
-
-func _physics_process(delta):
+func onDirection(direction_,delta_):
+	#opened: the wheels do not turn anymore
+	if !$closet.isLocked():
+		return
 	
-	pocessInput()
-	
-	if up:
+	if direction_.y<0:
 		$closet.goUp()
-	if down:
+	if direction_.y>0:
 		$closet.goDown()
-	if left:
+	if direction_.x<0:
 		$closet.goLeft()
-	if right:
+	if direction_.x>0:
 		$closet.goRight()
-		
-	resetKeys()
-	
-	if Input.is_action_just_pressed("ui_accept"):
-		pushButtonA()
-		
-	if Input.is_action_just_pressed("ui_cancel"):
-		pushButtonB()
 		
 func pushButtonA():
 	if !$closet.isLocked():
@@ -56,72 +37,5 @@ func pushButtonA():
 		GlobalAudio.play("code_wrong",false)
 		showInfo("INFO_CODE_WRONG")
 
-func pushButtonB():
-	SceneTransition.changeScene("res://flat.tscn")
-
 func showInfo(text_):
 	$info.showInfo(text_)
-	#$Timer.start()
-	
-func resetKeys():
-	if useTouch:
-		return
-		
-	resetNav()
-	
-func resetNav():
-	right=false
-	left=false
-	down=false
-	up=false	
-	
-func pocessInput():
-	if Input.is_action_just_pressed("ui_right"):
-		right=true
-		useTouch=false
-	if Input.is_action_just_pressed("ui_left"):
-		left=true
-		useTouch=false
-	if Input.is_action_just_pressed("ui_down"):
-		down=true
-		useTouch=false
-	if Input.is_action_just_pressed("ui_up"):
-		up=true
-		useTouch=false
-	if Input.is_action_just_pressed("ui_page_up"):
-		pageUp=true
-		useTouch=false
-	if Input.is_action_just_pressed("ui_page_down"):
-		pageDown=true
-		useTouch=false
-
-func _on_Timer_timeout():
-	$info.hideInfo()
-
-
-func _on_navigation_pushButtonA():
-	pushButtonA()
-
-
-func _on_navigation_pushButtonB():
-	pushButtonB()
-
-
-func _on_navigation_navDown():
-	resetNav()
-	down=true
-
-
-func _on_navigation_navLeft():
-	resetNav()
-	left=true
-
-
-func _on_navigation_navRight():
-	resetNav()
-	right=true
-
-
-func _on_navigation_navUp():
-	resetNav()
-	up=true

@@ -1,36 +1,24 @@
 extends MeshInstance3D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+#the colon blinks every half second, like a real alarm clock: hidden (transparent) rather than
+#removed so the digits do not move
+var colonVisible=true
 
 func refreshTime():
 	var datetimeNow= Time.get_datetime_dict_from_system()
 	
-	var timeString=str("%02d"%[datetimeNow.hour])+":"+str("%02d"%[datetimeNow.minute])
+	var colon=":" if colonVisible else "[color=#0000]:[/color]"
+	var timeString="%02d%s%02d"%[datetimeNow.hour,colon,datetimeNow.minute]
 	
-	$SubViewport/Panel/Label.text=timeString
+	$SubViewport/Panel/Label.text="[center]"+timeString+"[/center]"
 	$SubViewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 	
-	
-	
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	refreshTime()
-	
 	$Timer.start()
-	
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_Timer_timeout():
+	colonVisible=!colonVisible
 	refreshTime()
-

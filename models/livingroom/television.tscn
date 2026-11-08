@@ -4,6 +4,7 @@
 [ext_resource type="Material" path="res://ressources/metalDark.material" id="2"]
 [ext_resource type="Script" path="res://models/livingroom/television.gd" id="3"]
 [ext_resource type="FontFile" path="res://ressources/fonts/Jersey10.ttf" id="4"]
+[ext_resource type="Shader" path="res://models/decor/tvNoise.gdshader" id="5"]
 
 [sub_resource type="ConcavePolygonShape3D" id="1"]
 backface_collision = true
@@ -49,10 +50,10 @@ texture_filter = 0
 [sub_resource type="ViewportTexture" id="7"]
 viewport_path = NodePath("channelKO/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="8"]
+[sub_resource type="ShaderMaterial" id="8"]
 resource_local_to_scene = true
-albedo_texture = SubResource("7")
-texture_filter = 0
+shader = ExtResource("5")
+shader_parameter/screen_texture = SubResource("7")
 
 [node name="television" type="StaticBody3D"]
 script = ExtResource("3")
@@ -92,6 +93,7 @@ transform = Transform3D(-0.319105, -2.33482e-15, 1.51935e-08, -2.78971e-08, 2.67
 visible = false
 mesh = SubResource("6")
 surface_material_override/0 = SubResource("8")
+metadata/no_toon = true
 
 [node name="SubViewport" type="SubViewport" parent="channelKO"]
 size = Vector2(240, 120)

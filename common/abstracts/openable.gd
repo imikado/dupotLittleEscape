@@ -23,6 +23,8 @@ var solidWhenOpened=true
 var closedTransform=null
 var progress=0.0
 var tween=null
+#closed, the shapes wait for the player to leave before colliding again
+var waitingToBeSolid=false
 
 func open(animated_=true):
 	moveTo(1.0,OPEN_DURATION,openSound,animated_)
@@ -61,9 +63,47 @@ func setProgress(progress_):
 	transform=Transform3D(basis,origin)
 
 	if !solidWhenOpened:
-		for shape in find_children("*","CollisionShape3D",true,false):
-			#deferred: may be called during a physics step
-			shape.set_deferred("disabled",progress>0.001)
+		#closed on the player (in the doorway): solid again only once they have left, rather than
+		#pushing them out of the shapes with a jolt
+		waitingToBeSolid=progress<=0.001
+		if !waitingToBeSolid:
+			setShapesDisabled(true)
+		set_physics_process(waitingToBeSolid)
+
+func _ready():
+	set_physics_process(waitingToBeSolid)
+
+func _physics_process(_delta):
+	if !waitingToBeSolid or isOverlappingBody():
+		return
+	waitingToBeSolid=false
+	set_physics_process(false)
+	setShapesDisabled(false)
+
+func getShapes():
+	return find_children("*","CollisionShape3D",true,false)
+
+func setShapesDisabled(disabled_):
+	for shape in getShapes():
+		#deferred: may be called during a physics step
+		shape.set_deferred("disabled",disabled_)
+
+#a moving body (the player) inside the bounds of the closed shapes
+func isOverlappingBody():
+	var space=get_world_3d().direct_space_state
+	for shape in getShapes():
+		var aabb=shape.shape.get_debug_mesh().get_aabb()
+		var xform=shape.global_transform
+		var box=BoxShape3D.new()
+		box.size=aabb.size*xform.basis.get_scale()
+		var query=PhysicsShapeQueryParameters3D.new()
+		query.shape=box
+		#queries do not support scaled transforms
+		query.transform=Transform3D(xform.basis.orthonormalized(),xform*aabb.get_center())
+		for result in space.intersect_shape(query,8):
+			if !(result.collider is StaticBody3D):
+				return true
+	return false
 
 #swing side that moves the part away from a position (the player), on the ground
 func getAwayDirection(from_):

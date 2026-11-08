@@ -11,6 +11,8 @@ func _ready():
 	
 func zoom():
 	$info.visible=false
+	if props.locked:
+		$doorLeft/padlock.startEditing()
 	
 func goUp():
 	$doorLeft/padlock.goUp()

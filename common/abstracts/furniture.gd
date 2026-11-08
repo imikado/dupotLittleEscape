@@ -64,6 +64,10 @@ func hideInfo():
 func getInfoPanel():
 	return infoPanel
 
+#the object the player is looking at
+func setTargeted(targeted_):
+	ToonStyle.setHighlighted(self,targeted_)
+
 func displayInfo():
 	#to be implemented in child class
 	pass

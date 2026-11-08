@@ -1,12 +1,5 @@
 extends Control
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 const LANGUAGE_NAMES={"fr":"Français","en":"English"}
 #the title floats gently
 const FLOAT_HEIGHT=6.0
@@ -27,8 +20,17 @@ func _ready():
 	refreshKeyboard()
 	GlobalInput.keysChanged.connect(refreshKeyboard)
 
+	#touch controls: saved choice, or on by default on a touchscreen
+	var touch=GlobalGame.isGamepadEnabled()
+	$center/windows/window/content/gamepadEnabled.set_pressed_no_signal(touch)
+	%blocKeyboard.visible=!touch
+
 	#keyboard / gamepad: Enter starts directly
-	%play.grab_focus.call_deferred()
+	var continueButton=addContinueButton()
+	if continueButton:
+		continueButton.grab_focus.call_deferred()
+	else:
+		%play.grab_focus.call_deferred()
 	floatTitle()
 
 func floatTitle():
@@ -97,24 +99,32 @@ func _on_key_settings_closed():
 	%settings.grab_focus()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_CheckButton_toggled(button_pressed):
-	GlobalGame.setVrEnabled(button_pressed)
-	pass # Replace with function body.
-
+#a game is in progress (main menu from the pause menu): "continue" above "new game"
+func addContinueButton():
+	if !GlobalPlayer.isGameInProgress():
+		return null
+	var button=%play.duplicate(0)
+	button.name="continue"
+	button.unique_name_in_owner=false
+	button.text="MENU_CONTINUE"
+	button.pressed.connect(_on_continue_pressed)
+	%play.add_sibling(button)
+	%play.get_parent().move_child(button,%play.get_index())
+	%play.text="MENU_NEW_GAME"
+	%play.remove_theme_font_size_override("font_size")
+	%play.custom_minimum_size=Vector2.ZERO
+	return button
 
 func _on_play_pressed():
+	GlobalPlayer.newGame()
 	SceneTransition.changeScene("res://flat.tscn")
-	pass # Replace with function body.
+
+func _on_continue_pressed():
+	SceneTransition.changeScene("res://flat.tscn")
 
 
 func _on_gamepadEnabled_toggled(button_pressed):
 	GlobalGame.setGamepadEnabled(button_pressed)
-	
+
 	#touch controls: the keyboard keys are not needed
 	%blocKeyboard.visible=!button_pressed
-	pass # Replace with function body.

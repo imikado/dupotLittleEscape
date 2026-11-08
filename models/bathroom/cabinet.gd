@@ -1,6 +1,7 @@
 extends "res://common/abstracts/furniture.gd"
 
-signal openHotWater
+#animated_ false: state restored when the scene is loaded (the steam is already on the mirror)
+signal openHotWater(animated_)
 signal closeHotWater
 
 func _ready():
@@ -16,10 +17,10 @@ func refreshState():
 func openTap(animated_=true):
 	if animated_:
 		GlobalAudio.play("water")
-	emit_signal("openHotWater")
+	openHotWater.emit(animated_)
 	
 func closeTap():
-	emit_signal("closeHotWater")
+	closeHotWater.emit()
 	
 func displayInfo():
 	if props.state==CLOSED:

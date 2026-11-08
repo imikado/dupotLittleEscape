@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://models/bathroom/mirror.gd" id="4"]
 [ext_resource type="Material" path="res://materials/metal.tres" id="5"]
 [ext_resource type="Material" path="res://materials/black.tres" id="6"]
+[ext_resource type="Shader" path="res://models/decor/mirrorSteam.gdshader" id="7"]
+[ext_resource type="Shader" path="res://models/decor/mirrorWriting.gdshader" id="8"]
 
 [sub_resource type="ArrayMesh" id="1"]
 resource_name = "ID9.003"
@@ -47,6 +49,19 @@ _surfaces = [{
 "vertex_data": PackedByteArray("PUmaPu/Jw70A16O8AAAAAO/Jw70A16O8PUmaPu/Jw72OgxK9AAAAAO/Jw72OgxK9PUmaPu/Jw72OgxK9AAAAAO/Jw70A16O8PUmaPu/Jw70A16O8AAAAAO/Jw72OgxK9PUmaPu/Jw72OgxK9PUmaPn3ixzyOgxK9PUmaPu/Jw70A16O8PUmaPn3ixzwA16O8PUmaPu/Jw70A16O8PUmaPn3ixzyOgxK9PUmaPu/Jw72OgxK9PUmaPn3ixzwA16O8AAAAAH3ixzyOgxK9/14YPX3ixzyOgxK9AAAAAO/Jw72OgxK9PUmaPu/Jw72OgxK9XD2HPn3ixzyOgxK9PUmaPn3ixzyOgxK9AAAAAO/Jw70A16O8AAAAAH3ixzwA16O8AAAAAO/Jw72OgxK9AAAAAH3ixzyOgxK9AAAAAO/Jw72OgxK9AAAAAH3ixzwA16O8AAAAAO/Jw70A16O8AAAAAH3ixzyOgxK9AAAAAH3ixzwA16O8AAAAAO/Jw70A16O8PUmaPn3ixzwA16O8PUmaPu/Jw70A16O8PUmaPn3ixzwA16O8AAAAAO/Jw70A16O8AAAAAH3ixzwA16O8PUmaPu/Jw70A16O8////PwAAAAD///8/aQAAAP///z90AAAA////P3IAAAD///+/cAAAAP///79lAAAA////v2kAAAD///+/dwAAAP9/AABjAAAA/38AAGwAAAD/fwAAcgAAAP9/AAAAAAAA/3///wAAAAD/f///AAAAAP9///8AAAAA/3///wAAAAD///8/AAAAAP///z8AAAAA////P/F/AAD///8/AAAAAP///z8AAAAA////PwAAAAD/f/5/AAAAAP9//n8AAAAA/3/+fwAAAAD/f/5/AAAAAP9/AIAAAAAA/38AgAAAAAD/fwCAAAAAAP9/AIADAAAAAAD/PwAAAAAAAP8/AAAAAAAA/z8AAAAAAAD/PwAAAAAAAP+/AAAAAAAA/78AAAAAAAD/vwAAAAAAAP+/AAAAAA==")
 }]
 
+[sub_resource type="QuadMesh" id="QuadMesh_steam"]
+size = Vector2(0.2267, 0.363)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_steam"]
+render_priority = 0
+shader = ExtResource("7")
+shader_parameter/amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_writing"]
+render_priority = 1
+shader = ExtResource("8")
+shader_parameter/amount = 0.0
+
 [node name="mirror" type="Node3D"]
 script = ExtResource("4")
 
@@ -60,3 +75,13 @@ surface_material_override/2 = null
 [node name="MiroirClue" parent="." instance=ExtResource("3")]
 transform = Transform3D(-0.0423526, 0, -3.70258e-09, 3.70258e-09, -4.37114e-08, -0.0423526, -1.61845e-16, -1, 1.85129e-09, 0.250673, 0.259814, 0.041088)
 visible = false
+material_override = SubResource("ShaderMaterial_writing")
+metadata/no_toon = true
+
+[node name="steam" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.1506, 0.2173, 0.0348)
+visible = false
+cast_shadow = 0
+mesh = SubResource("QuadMesh_steam")
+material_override = SubResource("ShaderMaterial_steam")
+metadata/no_toon = true

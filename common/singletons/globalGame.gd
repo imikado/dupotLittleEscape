@@ -1,41 +1,37 @@
 extends Node
 
-var vrEnabled=true
+const Settings=preload("res://common/singletons/settings.gd")
+
 var gamepadEnabled=false
 
-func setVrEnabled(bool_):
-	vrEnabled=bool_
-	
-func isVRenabled():
-	return vrEnabled
-
+#touch controls (joystick and buttons on the screen), saved in the settings file
 func setGamepadEnabled(bool_):
 	gamepadEnabled=bool_
+	Settings.setValue("game","touch",gamepadEnabled)
 
 func isGamepadEnabled():
 	return gamepadEnabled
 
-const SETTINGS_FILE="user://settings.cfg"
+#first launch: on if the device has a touchscreen (phone, tablet), not on a desktop build (laptops
+#with a touchscreen have a keyboard)
+func loadGamepadEnabled():
+	var touch=DisplayServer.is_touchscreen_available() and (OS.has_feature("mobile") or OS.has_feature("web"))
+	gamepadEnabled=Settings.getValue("game","touch",touch)
+
 const LANGUAGES=["fr","en"]
 
 func setLanguage(language_):
 	if !LANGUAGES.has(language_):
 		language_="en"
 	TranslationServer.set_locale(language_)
-
-	var settings=ConfigFile.new()
-	settings.load(SETTINGS_FILE)
-	settings.set_value("game","language",language_)
-	settings.save(SETTINGS_FILE)
+	Settings.setValue("game","language",language_)
 
 func getLanguage():
 	return TranslationServer.get_locale().substr(0,2)
 
 func loadLanguage():
-	var settings=ConfigFile.new()
-	settings.load(SETTINGS_FILE)
 	#first launch: use the system language
-	var language=settings.get_value("game","language",OS.get_locale_language())
+	var language=Settings.getValue("game","language",OS.get_locale_language())
 	if !LANGUAGES.has(language):
 		language="en"
 	TranslationServer.set_locale(language)
@@ -43,6 +39,7 @@ func loadLanguage():
 
 func _ready():
 	loadLanguage()
+	loadGamepadEnabled()
 
 func isFullscreen():
 	return DisplayServer.window_get_mode()==DisplayServer.WINDOW_MODE_FULLSCREEN
@@ -63,13 +60,3 @@ func toggleFullscreen():
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed and !event.echo and event.keycode==KEY_F11:
 		toggleFullscreen()
-
-func initCamera(arvrOrigin_,vectorNonVr_):
-	return
-	var vr_interface=XRServer.find_interface("Native mobile")
-	if vr_interface and vr_interface.initialize():
-			get_viewport().use_xr=isVRenabled()
-
-	if !isVRenabled():
-		pass
-		arvrOrigin_.global_translate(vectorNonVr_)

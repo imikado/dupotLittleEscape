@@ -24,6 +24,7 @@ INVENTORY_TITLE,Inventaire,Inventory
 INVENTORY_CLOSE,Fermer [Échap],Close [Esc]
 INVENTORY_BACK,Retour [Échap],Back [Esc]
 INVENTORY_VIEW_HINT,Glisser ou {up} {down} {left} {right} : tourner · Molette ou Page↑ / Page↓ : zoomer,Drag or {up} {down} {left} {right}: rotate · Wheel or Page↑ / Page↓: zoom
+INVENTORY_USED,Utilisée,Used
 ITEM_POSTIT,Post-it,Sticky note
 ITEM_PAPER,Feuille de papier,Sheet of paper
 ITEM_BEDROOM_KEY,Clef de la chambre,Bedroom key
@@ -88,3 +89,6 @@ KEY_SHIFT,Maj,Shift
 KEY_CTRL,Ctrl,Ctrl
 KEY_DELETE,Suppr,Del
 KEY_ESCAPE,Échap,Esc
+MENU_CONTINUE,Continuer,Continue
+MENU_NEW_GAME,Nouvelle partie,New game
+ZOOM_HINT_BOX,{left} {right} : choisir la molette · {up} {down} : changer le chiffre · {accept} : valider,{left} {right}: select a wheel · {up} {down}: change the digit · {accept}: confirm

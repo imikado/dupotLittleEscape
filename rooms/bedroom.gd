@@ -14,4 +14,3 @@ func _ready():
 
 func _on_closet_gotoClosetZoom():
 	emit_signal("gotoClosetZoom")
-	pass # Replace with function body.

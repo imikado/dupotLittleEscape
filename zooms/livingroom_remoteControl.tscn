@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" path="res://models/livingroom/remoteControl.tscn" id="1"]
 [ext_resource type="Script" path="res://zooms/livingroom_remoteControl.gd" id="2"]
 [ext_resource type="Material" path="res://materials/black.tres" id="3"]
-[ext_resource type="Script" path="res://zooms/remoteControlViewport.gd" id="4"]
 [ext_resource type="PackedScene" path="res://common/gamePad/navigation.tscn" id="6"]
 [ext_resource type="FontFile" path="res://ressources/fonts/Jersey10.ttf" id="7"]
 
@@ -72,7 +71,6 @@ surface_material_override/0 = SubResource("4")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(512, 152)
-script = ExtResource("4")
 
 [node name="background" type="ColorRect" parent="SubViewport"]
 offset_right = 512.0

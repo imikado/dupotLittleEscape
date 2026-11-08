@@ -2,11 +2,17 @@ extends CharacterBody3D
 
 signal gotoInventory
 
-const SPEED= 160
-const ROTATE_SPEED=80
+#full speed: meters per second, degrees per second
+const SPEED=2.67
+const ROTATE_SPEED=80.0
 const GRAVITY=10
+#time to reach the full speed and to stop: smooth start and stop
+const ACCELERATION_TIME=0.15
+const DECELERATION_TIME=0.12
 
-var vel = Vector3()
+#touch joystick: knob offset at full tilt, smaller values are ignored (dead zone)
+const JOYSTICK_MAX=16.0
+const JOYSTICK_DEADZONE=0.25
 
 var nearObject = null
 
@@ -17,17 +23,12 @@ const TILT_SPEED=5.0
 var tiltObject=null
 var tiltAabb=null
 
-#keys
-var left=false
-var right=false
-var up=false
-var down=false
-var pageUp=false
-var pageDown=false
-var useTouch=false
-
-func _ready():
-	GlobalGame.initCamera($XROrigin3D,Vector3())
+#current speeds (-1 to 1), they follow the inputs smoothly
+var moving=0.0
+var turning=0.0
+#touch joystick (-1 to 1)
+var touchMoving=0.0
+var touchTurning=0.0
 
 func getCameraPosition():
 	return global_transform.basis
@@ -39,55 +40,29 @@ func _physics_process(delta):
 	updateNearObject()
 	updateTilt(delta)
 
-	var dir = Vector3()
-	dir.y-=GRAVITY
-	
-	var rotateY=0
-	var rotateX=0
-	var moving=0
-	
-	pocessInput()
+	#keyboard, gamepad stick (analog) and touch joystick
+	var targetMoving=clamp(Input.get_axis("ui_down","ui_up")+touchMoving,-1.0,1.0)
+	var targetTurning=clamp(Input.get_axis("ui_right","ui_left")+touchTurning,-1.0,1.0)
+	moving=smooth(moving,targetMoving,delta)
+	turning=smooth(turning,targetTurning,delta)
 
-	if up:
-		moving=1
-	if down:
-		moving=-1
-		
-	if left:
-		rotateX=1
-	if right:
-		rotateX=-1
-		
-	if pageUp:
-		rotateY=1
-	if pageDown:
-		rotateY=-1
-		
+	if turning!=0.0:
+		global_transform.basis=global_transform.basis.rotated(Vector3.UP,deg_to_rad(turning*ROTATE_SPEED)*delta)
 
-	dir += -global_transform.basis.z * moving * SPEED * delta
-	
-	if rotateX!=0:
-		
-		global_transform.basis=global_transform.basis.rotated(Vector3(0,1,0),deg_to_rad( rotateX * ROTATE_SPEED) * delta)
-	
-		
-	
-	if rotateY!=0:
-		
-		$XROrigin3D.rotate_object_local(Vector3(1,0,0),deg_to_rad( rotateY * ROTATE_SPEED) * delta)
-	
-
-	set_velocity(dir)
+	velocity=-global_transform.basis.z*moving*SPEED
+	velocity.y=-GRAVITY
 	move_and_slide()
-	vel = velocity
 
 	if Input.is_action_just_pressed("ui_accept"):
 		pushButtonA()
-	
+
 	if Input.is_action_just_pressed("ui_cancel"):
 		pushButtonB()
-		
-	resetKeys()
+
+#speeds up to the target, slows down faster (also when going the other way)
+func smooth(current_,target_,delta_):
+	var accelerating=abs(target_)>abs(current_) and current_*target_>=0.0
+	return move_toward(current_,target_,delta_/(ACCELERATION_TIME if accelerating else DECELERATION_TIME))
 
 func pushButtonA():
 	if nearObject && nearObject.has_method("action"):
@@ -98,7 +73,7 @@ func pushButtonA():
 				return
 
 			nearObject.action()
-			
+
 func pushButtonB():
 	emit_signal("gotoInventory")
 
@@ -119,11 +94,17 @@ func updateNearObject():
 
 	if nearest==nearObject:
 		return
-	if is_instance_valid(nearObject) and nearObject.has_method('hideInfo'):
-		nearObject.hideInfo()
+	if is_instance_valid(nearObject):
+		if nearObject.has_method('hideInfo'):
+			nearObject.hideInfo()
+		#highlight of the targeted object
+		if nearObject.has_method('setTargeted'):
+			nearObject.setTargeted(false)
 	nearObject=nearest
 	if nearObject:
 		nearObject.displayInfo()
+		if nearObject.has_method('setTargeted'):
+			nearObject.setTargeted(true)
 
 func getObjectCenter(object_):
 	var shape=object_.get_node_or_null("CollisionShape3D")
@@ -178,6 +159,7 @@ func getTiltAngle():
 	var angle=rad_to_deg(atan2(top.y-camera.global_position.y,distance))
 	return max(angle,MAX_TILT)
 
+#only the camera tilts: the contact zone stays level
 func updateTilt(delta):
 	var target=0.0
 	if tiltObject and is_instance_valid(tiltObject):
@@ -186,78 +168,20 @@ func updateTilt(delta):
 	var camera=$XROrigin3D/Camera3D
 	camera.rotation_degrees.x=lerp(camera.rotation_degrees.x,target,min(1.0,delta*TILT_SPEED))
 
-
+#touch joystick: up/down moves, left/right turns, both at once (analog)
 func _on_navigation_movePlayer(joystickVector_):
-	useTouch=true
-	
-	right=false
-	left=false
-	down=false
-	up=false	
-	
-	if abs(joystickVector_.x)>abs(joystickVector_.y) :
-	
-		if(joystickVector_.x > 10):
-			right=true
-		elif(joystickVector_.x < -10):
-			left=true
-	 
-	else:
-				
-		if(joystickVector_.y > 10):
-			down=true
-		elif(joystickVector_.y < -10):
-			up=true
-	pass # Replace with function body.
+	var vector=joystickVector_/JOYSTICK_MAX
+	touchMoving=-applyDeadzone(vector.y)
+	touchTurning=-applyDeadzone(vector.x)
 
-func resetKeys():
-	if useTouch:
-		return
-		
-	left=false
-	right=false
-	up=false
-	down=false
-	pageUp=false
-	pageDown=false
-
-func pocessInput():
-	if Input.is_action_pressed("ui_right"):
-		right=true
-		useTouch=false
-	if Input.is_action_pressed("ui_left"):
-		left=true
-		useTouch=false
-	if Input.is_action_pressed("ui_down"):
-		down=true
-		useTouch=false
-	if Input.is_action_pressed("ui_up"):
-		up=true
-		useTouch=false
-		
-
+func applyDeadzone(value_):
+	if abs(value_)<JOYSTICK_DEADZONE:
+		return 0.0
+	return sign(value_)*inverse_lerp(JOYSTICK_DEADZONE,1.0,min(abs(value_),1.0))
 
 func _on_navigation_pushButtonA():
 	pushButtonA()
-	pass # Replace with function body.
 
 
 func _on_navigation_pushButtonB():
 	pushButtonB()
-	pass # Replace with function body.
-
-
-func _on_navigation_moveHead(joystickVector_):
-	useTouch=true
-	
-	pageUp=false
-	pageDown=false
-	
-	if abs(joystickVector_.x) <= abs(joystickVector_.y) :
-	
-	 
-		if(joystickVector_.y > 10):
-			pageDown=true
-		elif(joystickVector_.y < -10):
-			pageUp=true
-	pass # Replace with function body.

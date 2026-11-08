@@ -58,6 +58,15 @@
   </supports>
   <releases>
 
+
+    <release date="2026-11-08" version="1.2.0">
+      <description>
+        <ul>
+          <li>Improve graphisms</li>
+        </ul>
+      </description>
+    </release>
+
     <release date="2026-10-30" version="1.1.0">
       <description>
         <ul>

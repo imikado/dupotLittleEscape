@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_white"]
+albedo_color = Color(0.98, 0.97, 0.94, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cord"]
+albedo_color = Color(0.14, 0.15, 0.24, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shade"]
+albedo_color = Color(0.98, 0.78, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bulb"]
+shading_mode = 0
+albedo_color = Color(1, 0.95, 0.75, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_canopy"]
+material = SubResource("StandardMaterial3D_white")
+top_radius = 0.09
+bottom_radius = 0.09
+height = 0.03
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cord"]
+material = SubResource("StandardMaterial3D_cord")
+top_radius = 0.008
+bottom_radius = 0.008
+height = 0.55
+radial_segments = 6
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_shade"]
+material = SubResource("StandardMaterial3D_shade")
+top_radius = 0.07
+bottom_radius = 0.26
+height = 0.24
+radial_segments = 16
+rings = 1
+cap_bottom = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_bulb"]
+material = SubResource("StandardMaterial3D_bulb")
+radius = 0.06
+height = 0.12
+radial_segments = 10
+rings = 5
+
+[node name="ceilingLamp" type="Node3D"]
+
+[node name="canopy" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 0)
+mesh = SubResource("CylinderMesh_canopy")
+
+[node name="cord" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+mesh = SubResource("CylinderMesh_cord")
+
+[node name="shade" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.69, 0)
+mesh = SubResource("CylinderMesh_shade")
+
+[node name="bulb" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.79, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_bulb")
+metadata/no_toon = true

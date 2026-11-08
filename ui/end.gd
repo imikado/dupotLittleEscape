@@ -9,9 +9,8 @@ const FLOAT_DURATION=1.2
 @onready var title=$center/window/content/title
 
 func _ready():
-	var vr_interface=XRServer.find_interface("Native mobile")
-	if vr_interface and vr_interface.initialize():
-			get_viewport().use_xr=false
+	#the main menu does not offer to continue a finished game
+	GlobalPlayer.finishGame()
 
 	#keyboard / gamepad: Enter validates directly
 	$center/window/content/goBackToMenu.grab_focus.call_deferred()

@@ -8,6 +8,40 @@
 [ext_resource type="PackedScene" path="res://models/bathroom/secretBoxWithCode.tscn" id="6"]
 [ext_resource type="Script" path="res://rooms/kitchen.gd" id="7"]
 [ext_resource type="PackedScene" path="res://models/kitchen/toaster.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://models/decor/frame.tscn" id="decor_frame"]
+[ext_resource type="PackedScene" path="res://models/decor/plant.tscn" id="decor_plant"]
+[ext_resource type="PackedScene" path="res://models/decor/ceilingLamp.tscn" id="decor_ceilingLamp"]
+[ext_resource type="Script" path="res://common/contactShadows.gd" id="decor_contactShadows"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skirting"]
+albedo_color = Color(0.98, 0.97, 0.94, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirting0"]
+material = SubResource("StandardMaterial3D_skirting")
+size = Vector3(3.87, 0.1, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirting1"]
+material = SubResource("StandardMaterial3D_skirting")
+size = Vector3(3.87, 0.1, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirting2"]
+material = SubResource("StandardMaterial3D_skirting")
+size = Vector3(8.21, 0.1, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirting3"]
+material = SubResource("StandardMaterial3D_skirting")
+size = Vector3(2.42, 0.1, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirting4"]
+material = SubResource("StandardMaterial3D_skirting")
+size = Vector3(12.33, 0.1, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rug0"]
+albedo_color = Color(0.3, 0.6, 0.58, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rug0"]
+material = SubResource("StandardMaterial3D_rug0")
+size = Vector3(0.8, 0.01, 3.2)
 
 [node name="kitchen" type="Node3D"]
 script = ExtResource("7")
@@ -48,5 +82,48 @@ transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 20.109
 
 [node name="toaster" parent="." instance=ExtResource("8")]
 transform = Transform3D(-1.8181, -0.0517659, -2.38576, 0, 2.99929, -0.0650782, 2.38632, -0.0394394, -1.81766, 19.851, 1.26, -1.0166)
+
+[node name="decor" type="Node3D" parent="."]
+
+[node name="skirting0" type="MeshInstance3D" parent="decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.625, 0.05, -3.64)
+mesh = SubResource("BoxMesh_skirting0")
+
+[node name="skirting1" type="MeshInstance3D" parent="decor"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 18.625, 0.05, 8.67)
+mesh = SubResource("BoxMesh_skirting1")
+
+[node name="skirting2" type="MeshInstance3D" parent="decor"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 16.7, 0.05, 0.455)
+mesh = SubResource("BoxMesh_skirting2")
+
+[node name="skirting3" type="MeshInstance3D" parent="decor"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 16.7, 0.05, 7.47)
+mesh = SubResource("BoxMesh_skirting3")
+
+[node name="skirting4" type="MeshInstance3D" parent="decor"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 20.55, 0.05, 2.515)
+mesh = SubResource("BoxMesh_skirting4")
+
+[node name="rug0" type="MeshInstance3D" parent="decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.55, 0.005, 2.5)
+mesh = SubResource("BoxMesh_rug0")
+
+[node name="frame0" parent="decor" instance=ExtResource("decor_frame")]
+transform = Transform3D(0, 0, 1.6, 0, 1.6, 0, -1.6, 0, 0, 16.69, 1.75, -0.6)
+style = 2
+
+[node name="plant0" parent="decor" instance=ExtResource("decor_plant")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1, 0, -3.2)
+
+[node name="ceilingLamp0" parent="decor" instance=ExtResource("decor_ceilingLamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6, 3.79077, 0.5)
+
+[node name="ceilingLamp1" parent="decor" instance=ExtResource("decor_ceilingLamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6, 3.79077, 5.5)
+
+[node name="contactShadows" type="Node3D" parent="."]
+script = ExtResource("decor_contactShadows")
+bounds = Rect2(16.69, -3.65, 3.87, 12.33)
 
 [connection signal="gotoSecretBoxZoom" from="cabinetDrawer2/secretBoxWithCode" to="." method="_on_secretBoxWithCode_gotoSecretBoxZoom"]

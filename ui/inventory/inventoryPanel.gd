@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 const ITEM_VIEWER=preload("res://ui/inventory/itemViewer.tscn")
+#items already used: greyed, still viewable
+const USED_SHADER=preload("res://ui/inventory/used.gdshader")
+const USED_COLOR=Color(0.62,0.6,0.7)
 
 @onready var overlay=$overlay
 @onready var grid=$overlay/window/content/gridView/grid
@@ -52,6 +55,10 @@ func toggle():
 func open():
 	if Engine.get_process_frames()==closedFrame:
 		return
+	#already paused by the pause menu: closing the inventory would unpause the game behind it
+	#scene change in progress: the panel would stay open in the flat kept in memory
+	if get_tree().paused or SceneTransition.isBusy():
+		return
 	GlobalAudio.play("pop")
 	#the language may have changed since
 	refreshTexts()
@@ -97,8 +104,23 @@ func createSlot(id_):
 	label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(label)
 
+	if GlobalPlayer.isItemUsed(id_):
+		setUsed(viewer,label)
+		var usedLabel=Label.new()
+		usedLabel.text="INVENTORY_USED"
+		usedLabel.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		usedLabel.add_theme_font_size_override("font_size",14)
+		usedLabel.add_theme_color_override("font_color",USED_COLOR)
+		box.add_child(usedLabel)
+
 	slot.pressed.connect(showDetail.bind(id_,slot))
 	return slot
+
+func setUsed(viewer_,label_):
+	var material=ShaderMaterial.new()
+	material.shader=USED_SHADER
+	viewer_.material=material
+	label_.add_theme_color_override("font_color",USED_COLOR)
 
 func showGrid():
 	detail.visible=false
@@ -118,6 +140,8 @@ func showDetail(id_,slot_):
 	detail.visible=true
 	detailViewer.setItem(id_)
 	detailName.text=GlobalItems.getItem(id_).name
+	if GlobalPlayer.isItemUsed(id_):
+		detailName.text=tr(detailName.text)+" ("+tr("INVENTORY_USED")+")"
 	$overlay/window/content/detail/back.grab_focus.call_deferred()
 
 func _unhandled_input(event):

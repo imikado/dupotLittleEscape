@@ -1,17 +1,10 @@
 extends "res://common/abstracts/furniture.gd"
 
-var minLine=1
-var currentLine=1
-var maxLine=4
-
-var minNumber=0
-var maxNumber=9
-
-var codeList=[0,0,0,0]
+const CodeWheels=preload("res://common/abstracts/codeWheels.gd")
 
 @export var rightCode=[0,0,0,0] # (Array,int)
 
-signal correctCode
+var wheels=CodeWheels.new(self,"cover/bloc","SubViewport")
 
 signal gotoSecretBoxZoom
 
@@ -23,90 +16,34 @@ func _ready():
 		"state":CLOSED,
 		"locked":true
 	}
-	
-	for i in range(1,5):
-		setLine(i,str(0))
-		unselectLine(i)
-		print(str(i))
-		
-	selectLine(1)
-	
-	#$cover.close()
-		
+	wheels.reset()
+
+#close-up: the selected wheel is highlighted (not in the room)
+func startEditing():
+	wheels.startEditing()
+
 func goDown():
-	currentLine+=1
-	if currentLine > maxLine:
-		currentLine=minLine
-	
-	GlobalAudio.play("tick")
-	resetThenSelectLine(currentLine)
+	wheels.goDown()
 
 func goUp():
-	currentLine-=1
-	if currentLine < minLine:
-		currentLine=maxLine
-	
-	GlobalAudio.play("tick")
-	resetThenSelectLine(currentLine)
+	wheels.goUp()
 
 func goLeft():
-	var code=getCurrentCode()
-	code-=1
-	if code < minNumber:
-		code=maxNumber
-	GlobalAudio.play("tick")
-	updateCurrentCode(code)
+	wheels.goLeft()
 
 func goRight():
-	var code=getCurrentCode()
-	code+=1
-	if code > maxNumber:
-		code=minNumber
-	GlobalAudio.play("tick")
-	updateCurrentCode(code)
+	wheels.goRight()
 
-func getCurrentCode():
-	return codeList[ (currentLine-1) ]
-	
 func isCodeCorrect():
-	for i in range(0,4):
-		if codeList[i]!=rightCode[i]:
-			return false
-	return true
+	return wheels.isCodeCorrect(rightCode)
 
-func updateCurrentCode(code):
-	codeList[ (currentLine-1) ]=code
-	setLine(currentLine,str(code))
-	
-func resetThenSelectLine(number_):
-	for i in range(1,5):
-		unselectLine(i)
-	selectLine(number_)
-
-func unselectLine(number_):
-	var node = get_node("cover/bloc/line"+str(number_))
-	var material = node.get_surface_override_material(0)
-	material.albedo_color = Color(1, 1,1.25)
-	node.set_surface_override_material(0, material)
-
-	
-func selectLine(number_):
-	var node = get_node("cover/bloc/line"+str(number_))
-	var material = node.get_surface_override_material(0)
-	material.albedo_color = Color(1, 0, 0,0.5)
-	node.set_surface_override_material(0, material)
-
-func setLine(number_,text_):
-	get_node("cover/bloc/line"+str(number_)+"/SubViewport/Label").text=text_
-	get_node("cover/bloc/line"+str(number_)+"/SubViewport").render_target_update_mode=SubViewport.UPDATE_ONCE
-	
 func refreshState():
 	if props.state==OPENED:
 		openCover(false)
 		
 	if !props.locked:
 		for i in range(0,4):
-			setLine(i+1, str(rightCode[i]) )
+			wheels.setLine(i+1, str(rightCode[i]) )
 		
 func refreshItem():
 	$base/kitchen_key.visible=false
@@ -159,6 +96,7 @@ func action():
 func unlock():
 	props.state=OPENED
 	props.locked=false
+	wheels.unselectAll()
 	openCover()
 	saveProps()
 	

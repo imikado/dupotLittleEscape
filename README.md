@@ -48,18 +48,17 @@ You wake up locked in a small flat. The only way out is the **exit door**, and i
 
 ## 🎮 Controls
 
-| Action | Keyboard |
-|---|---|
-| Move forward / back | ↑ ↓ arrow keys |
-| Turn | ← → arrow keys |
-| Look up / down | `Page Up` / `Page Down` |
-| Action (open, take, use) | `Enter` or `Space` |
-| Back to the room / inventory | `Backspace` |
-| Inventory | `I` |
-| Menu | `Esc` |
-| Fullscreen | `F11` |
+| Action | Keyboard | Gamepad |
+|---|---|---|
+| Move forward / back | ↑ ↓ arrow keys or `W` `S` (`Z` `S` on AZERTY) | Left stick / D-pad |
+| Turn | ← → arrow keys or `A` `D` (`Q` `D` on AZERTY) | Left stick / D-pad |
+| Action (open, take, use) | `Enter` or `Space` | `A` / ✕ |
+| Back to the room / inventory | `Backspace` | `B` / ○ |
+| Inventory | `I` | `Y` / △ |
+| Menu | `Esc` | `Start` |
+| Fullscreen | `F11` | |
 
-🎮 Gamepads are supported too, and touch controls can be turned on from the main menu.
+🎮 The keys can be changed in the settings. Touch controls are turned on by default on phones and tablets, and can be switched from the main menu.
 
 ## 📦 Install
 

@@ -144,7 +144,6 @@ vertical_alignment = 1
 
 [node name="navigation" parent="." instance=ExtResource("12")]
 displayLeftJoystick = true
-displayRightJoystick = true
 displayButtonA = true
 displayButtonB = true
 
@@ -157,7 +156,6 @@ displayButtonB = true
 [connection signal="gotoRemoteControlZoom" from="rooms/livingroom" to="." method="_on_livingroom_gotoRemoteControlZoom"]
 [connection signal="gotoBathroomSecretBoxZoom" from="rooms/bathroom" to="." method="_on_bathroom_gotoBathroomSecretBoxZoom"]
 [connection signal="gotoKitchenSecretBoxZoom" from="rooms/kitchen" to="." method="_on_kitchen_gotoKitchenSecretBoxZoom"]
-[connection signal="moveHead" from="navigation" to="Player" method="_on_navigation_moveHead"]
 [connection signal="movePlayer" from="navigation" to="Player" method="_on_navigation_movePlayer"]
 [connection signal="pushButtonA" from="navigation" to="Player" method="_on_navigation_pushButtonA"]
 [connection signal="pushButtonB" from="navigation" to="Player" method="_on_navigation_pushButtonB"]

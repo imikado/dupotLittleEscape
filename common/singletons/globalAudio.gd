@@ -31,7 +31,7 @@ const PITCH_VARIATION=0.06
 #several sounds at the same time (a door and the info sound...)
 const PLAYER_COUNT=8
 
-const SETTINGS_FILE="user://settings.cfg"
+const Settings=preload("res://common/singletons/settings.gd")
 
 var players=[]
 var nextPlayer=0
@@ -55,9 +55,7 @@ func _ready():
 	add_child(music)
 	music.play()
 
-	var settings=ConfigFile.new()
-	settings.load(SETTINGS_FILE)
-	setEnabled(settings.get_value("game","sound",true),false)
+	setEnabled(Settings.getValue("game","sound",true),false)
 
 	#every button of the game clicks (also the ones already in the tree: the autoloads loaded before)
 	get_tree().node_added.connect(_on_node_added)
@@ -87,12 +85,8 @@ func isEnabled():
 func setEnabled(enabled_,save_=true):
 	enabled=enabled_
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"),!enabled)
-	if !save_:
-		return
-	var settings=ConfigFile.new()
-	settings.load(SETTINGS_FILE)
-	settings.set_value("game","sound",enabled)
-	settings.save(SETTINGS_FILE)
+	if save_:
+		Settings.setValue("game","sound",enabled)
 
 func toggle():
 	setEnabled(!enabled)
